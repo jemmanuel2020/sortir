@@ -17,7 +17,7 @@ class Sortie
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $idSortie;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -69,13 +69,13 @@ class Sortie
     private $etat;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sortiesOrganisees")
+     * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="sortiesOrganisees")
      * @ORM\JoinColumn(nullable=false)
      */
     private $organisateur;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="sorties")
+     * @ORM\ManyToMany(targetEntity=Participant::class, inversedBy="sorties")
      */
     private $participants;
 
@@ -84,9 +84,9 @@ class Sortie
         $this->participants = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getIdSortie(): ?int
     {
-        return $this->id;
+        return $this->idSortie;
     }
 
     public function getNom(): ?string
@@ -199,12 +199,12 @@ class Sortie
         return $this;
     }
 
-    public function getOrganisateur(): ?User
+    public function getOrganisateur(): ?Participant
     {
         return $this->organisateur;
     }
 
-    public function setOrganisateur(?User $organisateur): self
+    public function setOrganisateur(?Participant $organisateur): self
     {
         $this->organisateur = $organisateur;
 
@@ -212,14 +212,14 @@ class Sortie
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|Participant[]
      */
     public function getParticipants(): Collection
     {
         return $this->participants;
     }
 
-    public function addParticipant(User $participant): self
+    public function addParticipant(Participant $participant): self
     {
         if (!$this->participants->contains($participant)) {
             $this->participants[] = $participant;
@@ -228,7 +228,7 @@ class Sortie
         return $this;
     }
 
-    public function removeParticipant(User $participant): self
+    public function removeParticipant(Participant $participant): self
     {
         $this->participants->removeElement($participant);
 

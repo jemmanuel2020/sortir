@@ -15,31 +15,31 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
-class User implements UserInterface
+abstract class Participant implements UserInterface
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $idParticipant;
 
     /**
      * @Assert\Email(message="Your email is not valid!")
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private $mail;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="boolean")
      */
-    private $roles = [];
+    private $administrateur;
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private $motPasse;
 
     /**
      * @Assert\NotBlank(message="Please provide your username!")
@@ -52,7 +52,7 @@ class User implements UserInterface
      * @Assert\Regex(pattern="/^[a-z0-9_-]+$/i", message="Please use only letters, numbers, underscores and dashes!")
      * @ORM\Column(type="string", length=50, unique=true)
      */
-    private $username;
+    private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -84,15 +84,20 @@ class User implements UserInterface
      */
     private $sorties;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="users")
+     */
+    private $campus;
+
     public function __construct()
     {
         $this->sortiesOrganisees = new ArrayCollection();
         $this->sorties = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getIdParticipant(): ?int
     {
-        return $this->id;
+        return $this->idParticipant;
     }
 
     public function getEmail(): ?string
@@ -136,14 +141,14 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getMotPasse(): string
     {
-        return (string) $this->password;
+        return (string) $this->motPasse;
     }
 
-    public function setPassword(string $password): self
+    public function setMotPasse(string $motPasse): self
     {
-        $this->password = $password;
+        $this->motPasse = $motPasse;
 
         return $this;
     }
@@ -227,22 +232,22 @@ class User implements UserInterface
         return $this->sortiesOrganisees;
     }
 
-    public function addSortiesOrganisee(Sortie $sortiesOrganisee): self
+    public function addSortiesOrganisees(Sortie $sortiesOrganisees): self
     {
-        if (!$this->sortiesOrganisees->contains($sortiesOrganisee)) {
-            $this->sortiesOrganisees[] = $sortiesOrganisee;
-            $sortiesOrganisee->setOrganisateur($this);
+        if (!$this->sortiesOrganisees->contains($sortiesOrganisees)) {
+            $this->sortiesOrganisees[] = $sortiesOrganisees;
+            $sortiesOrganisees->setOrganisateur($this);
         }
 
         return $this;
     }
 
-    public function removeSortiesOrganisee(Sortie $sortiesOrganisee): self
+    public function removeSortiesOrganisees(Sortie $sortiesOrganisees): self
     {
-        if ($this->sortiesOrganisees->removeElement($sortiesOrganisee)) {
+        if ($this->sortiesOrganisees->removeElement($sortiesOrganisees)) {
             // set the owning side to null (unless already changed)
-            if ($sortiesOrganisee->getOrganisateur() === $this) {
-                $sortiesOrganisee->setOrganisateur(null);
+            if ($sortiesOrganisees->getOrganisateur() === $this) {
+                $sortiesOrganisees->setOrganisateur(null);
             }
         }
 
@@ -257,21 +262,33 @@ class User implements UserInterface
         return $this->sorties;
     }
 
-    public function addSorty(Sortie $sorty): self
+    public function addSortie(Sortie $sortie): self
     {
-        if (!$this->sorties->contains($sorty)) {
-            $this->sorties[] = $sorty;
-            $sorty->addParticipant($this);
+        if (!$this->sorties->contains($sortie)) {
+            $this->sorties[] = $sortie;
+            $sortie->addParticipant($this);
         }
 
         return $this;
     }
 
-    public function removeSorty(Sortie $sorty): self
+    public function removeSortie(Sortie $sortie): self
     {
-        if ($this->sorties->removeElement($sorty)) {
-            $sorty->removeParticipant($this);
+        if ($this->sorties->removeElement($sortie)) {
+            $sortie->removeParticipant($this);
         }
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
 
         return $this;
     }

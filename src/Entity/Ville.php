@@ -17,7 +17,7 @@ class Ville
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $idVille;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -39,9 +39,9 @@ class Ville
         $this->lieus = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getIdVille(): ?int
     {
-        return $this->id;
+        return $this->idVille;
     }
 
     public function getNom(): ?string
