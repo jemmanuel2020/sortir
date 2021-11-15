@@ -1,7 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Welcome !</h1>
+    <div id="acceuil">
+
+        <div class="">
+            <div>
+                <p>Date du jour : {{ "now"|date("m/d/Y") }}</p>
+                <p>Participant : </p>
+            </div>
+        </div>
+
+        <h2>Filtrer les sorties</h2>
+
+        <form>
+            <label>Campus</label>
+            <input type="select">
+        </form>
+    </div>
 {% endblock %}
 
-{% block title %}{{ parent() }} | Home{% endblock %}
+{% block title %}{{ parent() }} | Acceuil{% endblock %}

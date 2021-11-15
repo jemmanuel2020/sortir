@@ -1,0 +1,22 @@
+/********************************************** GLOBAL ************************************************/
+body{
+    width: 95%;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+nav li {
+    margin-right: 1rem;
+}
+
+/********************************************** PAGE ACCEUIL ************************************************/
