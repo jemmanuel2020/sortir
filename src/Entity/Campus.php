@@ -25,11 +25,13 @@ class Campus
     private $nom;
 
     /**
+     * @ORM\JoinColumn(referencedColumnName="id_sortie")
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="campus")
      */
     private $sorties;
 
     /**
+     * @ORM\JoinColumn(referencedColumnName="id_participant")
      * @ORM\OneToMany(targetEntity=Participant::class, mappedBy="campus")
      */
     private $participants;

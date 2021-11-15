@@ -15,7 +15,7 @@ class Lieu
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="id_lieu")
      */
     private $idLieu;
 
@@ -40,11 +40,13 @@ class Lieu
     private $longitude;
 
     /**
+     * @ORM\JoinColumn(referencedColumnName="id_sortie")
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="lieu")
      */
     private $sorties;
 
     /**
+     * @ORM\JoinColumn(referencedColumnName="id_ville")
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="lieus")
      */
     private $ville;

@@ -30,6 +30,7 @@ class Ville
     private $codePostal;
 
     /**
+     * @ORM\JoinColumn(referencedColumnName="id_lieu")
      * @ORM\OneToMany(targetEntity=Lieu::class, mappedBy="ville")
      */
     private $lieus;

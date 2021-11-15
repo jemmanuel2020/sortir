@@ -25,6 +25,7 @@ class Etat
     private $libelle;
 
     /**
+     * @ORM\JoinColumn(referencedColumnName="id_sortie")
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="etat")
      */
     private $sorties;
