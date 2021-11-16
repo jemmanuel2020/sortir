@@ -65,7 +65,7 @@ abstract class Participant implements UserInterface
     private $prenom;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=0)
+     * @ORM\Column(type="string", length=35)
      */
     private $telephone;
 
