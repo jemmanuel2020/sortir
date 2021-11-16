@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
-abstract class Participant implements UserInterface
+class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -103,24 +104,12 @@ abstract class Participant implements UserInterface
         return $this->idParticipant;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
     /**
      * @see UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string) $this->mail;
     }
 
     /**
@@ -128,22 +117,9 @@ abstract class Participant implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->administrateur ? ['ROLE_ADMIN'] : ['ROLE_USER'];
     }
 
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
     public function getMotPasse(): string
     {
         return (string) $this->motPasse;
@@ -161,7 +137,7 @@ abstract class Participant implements UserInterface
      */
     public function getSalt()
     {
-        // TODO: Implement getSalt() method.
+        return null;
     }
 
     /**
@@ -169,14 +145,6 @@ abstract class Participant implements UserInterface
      */
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     public function getNom(): ?string
@@ -294,6 +262,65 @@ abstract class Participant implements UserInterface
         $this->campus = $campus;
 
         return $this;
+    }
+
+
+    public function getPassword() : string
+    {
+        return $this->motPasse;
+    }
+
+    public function getUserIdentifier() : string
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @param mixed $mail
+     */
+    public function setMail($mail): void
+    {
+        $this->mail = $mail;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAdministrateur()
+    {
+        return $this->administrateur;
+    }
+
+    /**
+     * @param mixed $administrateur
+     */
+    public function setAdministrateur($administrateur): void
+    {
+        $this->administrateur = $administrateur;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPseudo()
+    {
+        return $this->pseudo;
+    }
+
+    /**
+     * @param mixed $pseudo
+     */
+    public function setPseudo($pseudo): void
+    {
+        $this->pseudo = $pseudo;
     }
 
 
