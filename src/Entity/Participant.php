@@ -103,14 +103,14 @@ abstract class Participant implements UserInterface
         return $this->idParticipant;
     }
 
-    public function getEmail(): ?string
+    public function getMail(): ?string
     {
-        return $this->email;
+        return $this->mail;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(string $mail): self
     {
-        $this->email = $email;
+        $this->mail = $mail;
 
         return $this;
     }
@@ -120,7 +120,7 @@ abstract class Participant implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string) $this->pseudo;
     }
 
     /**
@@ -172,9 +172,9 @@ abstract class Participant implements UserInterface
         // TODO: Implement eraseCredentials() method.
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(string $pseudo): self
     {
-        $this->username = $username;
+        $this->pseudo = $pseudo;
 
         return $this;
     }
