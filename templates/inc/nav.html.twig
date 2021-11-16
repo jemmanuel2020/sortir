@@ -1,9 +1,11 @@
 <nav>
     <ul>
-        <li><a href=# title="Villes">Villes</a></li>
-        <li><a href=# title="Campus">Campus</a></li>
-        <li><a href={{ path('main_home') }} title="Accueil">Accueil</a></li>
-        <li><a href=# title="Mon profil">Mon profil</a></li>
-        <li><a href=# title="Home">Se déconnecter</a></li>
+        {% if app.user %}
+            <li><a href=# title="Villes">Villes</a></li>
+            <li><a href=# title="Campus">Campus</a></li>
+            <li><a href={{ path('main_home') }} title="Accueil">Accueil</a></li>
+            <li><a href=# title="Mon profil">Mon profil</a></li>
+            <li><a href="{{ path('app_logout') }}" title="Deconnexion">Se déconnecter ({{ app.user.pseudo }})</a></li>
+        {% endif %}
     </ul>
 </nav>
