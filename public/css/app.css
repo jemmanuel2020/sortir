@@ -19,10 +19,46 @@ nav li {
     margin-right: 1rem;
 }
 
+/********************************************** PAGE LOGIN ************************************************/
+#login-page #form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*align-content: center;*/
+    align-items: center;
+    width: 100%;
+}
+
+#bloc-boutons-login{
+    display: flex;
+    margin-top: 1rem;
+}
+
+#login-bouton {
+    margin-right: 2rem;
+}
+
+#label-remember-me-bouton {
+    width: auto !important;
+}
+
+#login-page label {
+    display: block;
+    width: 125px;
+    float: left;
+}
+
 /********************************************** PAGE ACCEUIL ************************************************/
+#acceuil a {
+    text-decoration: none;
+    color: black;
+}
+
+#acceuil button {
+    padding: 1rem;
+}
 
 /********************************************** PAGE MON PROFIL ************************************************/
-
 #mon-profil
 {
     display: flex;
@@ -50,6 +86,7 @@ nav li {
 #profil > div {
     margin-bottom: 1rem;
 }
+
 #mon-profil label {
     display: block;
     width: 125px;
