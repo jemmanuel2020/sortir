@@ -1,9 +1,11 @@
 <nav>
     <ul>
-        <li><a href=# title="Villes">Villes</a></li>
-        <li><a href=# title="Campus">Campus</a></li>
-        <li><a href={{ path('main_home') }} title="Accueil">Accueil</a></li>
-        <li><a href=# title="Mon profil">Mon profil</a></li>
+        {% if app.request.pathinfo != '/participant/1' %}
+            <li><a href=# title="Villes">Villes</a></li>
+            <li><a href=# title="Campus">Campus</a></li>
+        {% endif %}
+        <li><a href="{{ path('main_home') }}" title="Accueil">Accueil</a></li>
+        <li><a href="{{ path('participant_profil', {idParticipant : 1}) }}" title="Mon profil">Mon profil</a></li>
         <li><a href=# title="Home">Se déconnecter</a></li>
     </ul>
 </nav>

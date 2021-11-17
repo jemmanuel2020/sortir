@@ -13,8 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
- * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
+ * @UniqueEntity(fields={"mail"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"pseudo"}, message="There is already an account with this username")
  */
 class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -26,7 +26,8 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $idParticipant;
 
     /**
-     * @Assert\Email(message="Your email is not valid!")
+     * @Assert\Email(message="L'email saisi n'est pas valide")
+     * @Assert\NotBlank(message="Email manquant")
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $mail;
@@ -37,18 +38,19 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $administrateur;
 
     /**
+     * @Assert\NotBlank(message="Mot de passe manquant")
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $motPasse;
 
     /**
-     * @Assert\NotBlank(message="Please provide your username!")
+     * @Assert\NotBlank(message="Pseudo manquant")
      * @Assert\Length(
      *     min=3,
      *     max=50,
-     *     minMessage="Minimum 3 characters please!",
-     *     maxMessage="Maximum 50 characters please!"
+     *     minMessage="Minimum 3 caractères !",
+     *     maxMessage="Maximum 50 caractères !"
      * )
      * @Assert\Regex(pattern="/^[a-z0-9_-]+$/i", message="Please use only letters, numbers, underscores and dashes!")
      * @ORM\Column(type="string", length=50, unique=true)
@@ -56,16 +58,19 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $pseudo;
 
     /**
+     * @Assert\NotBlank(message="Nom manquant")
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message="Prénom manquant")
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
 
     /**
+     * @Assert\NotBlank(message="Téléphone manquant")
      * @ORM\Column(type="string", length=35)
      */
     private $telephone;
