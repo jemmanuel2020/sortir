@@ -39,13 +39,22 @@ nav li {
     width: 100%;
 }
 
+#login-page #pwd{
+    margin-top: 1rem;
+}
+
 #bloc-boutons-login{
     display: flex;
-    margin-top: 1rem;
+    margin-top: 2rem;
 }
 
 #login-bouton {
     margin-right: 2rem;
+    width: 110px;
+    height: 50px;
+    box-shadow: 2px 2px  black;
+    border-width: 1px ;
+    background-color: #FFFFFF;
 }
 
 #label-remember-me-bouton {
