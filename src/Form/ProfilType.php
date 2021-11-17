@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,15 +35,20 @@ class ProfilType extends AbstractType
             ->add('mail', EmailType::class, [
                 'label' => 'Email :'
             ])
-            ->add('motPasse', PasswordType::class, [
-                'label' => 'Mot de passe :'
+            ->add('motPasse', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les mots de passe doivent correspondre',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options'  => ['label' => 'Mot de passe :'],
+                'second_options' => ['label' => 'Confirmation :'],
             ])
-            //confirmation
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'label' => 'Campus :'
             ])
-            //photo
+            //todo upload photo - itération 2 - 1004
         ;
     }
 
