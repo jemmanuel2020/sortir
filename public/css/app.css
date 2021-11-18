@@ -7,16 +7,13 @@ body {
     min-height: 100vh;
 }
 
-main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 header {
     display: flex;
     justify-content: space-between;
+}
+
+header h1{
+    font-size: 3rem;
 }
 
 nav {
@@ -33,6 +30,24 @@ nav li {
     margin-right: 1rem;
 }
 
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 7rem;
+}
+
+h2{
+    font-size: 2rem;
+}
+
+label {
+    display: block;
+    width: 150px;
+    float: left;
+}
+
 button {
     width: 110px;
     height: 50px;
@@ -43,6 +58,10 @@ button {
 button a {
     text-decoration: none;
     color: black;
+}
+
+footer {
+    text-align: center;
 }
 
 /********************************************** PAGE LOGIN ************************************************/
@@ -70,12 +89,6 @@ button a {
 
 #label-remember-me-bouton {
     width: auto !important;
-}
-
-label {
-    display: block;
-    width: 150px;
-    float: left;
 }
 
 /********************************************** PAGE ACCEUIL ************************************************/
@@ -113,12 +126,6 @@ label {
     margin-bottom: 1rem;
 }
 
-#mon-profil label {
-    display: block;
-    width: 150px;
-    float: left;
-}
-
 #mon-profil input {
     width: 15rem;
 }
@@ -139,3 +146,27 @@ label {
 }
 
 /********************************************** PAGE CREATION SORTIE ************************************************/
+#create-sortie-page h2{
+    text-align: center;
+}
+
+#div-form-create-sortie form > div {
+    display: flex;
+}
+
+#sortie-form-first-part{
+    margin-right: 3rem;
+}
+
+#sortie-form-first-part > div, #sortie-form-second-part > div {
+    margin-bottom: 1.5rem;
+}
+
+#create-sortie-page input , #create-sortie-page textarea, #create-sortie-page select {
+    width: 15rem;
+}
+
+#bloc-button-create-sortie {
+    display: flex;
+    justify-content: space-evenly;
+}

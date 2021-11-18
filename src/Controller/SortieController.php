@@ -19,7 +19,11 @@ class SortieController extends AbstractController
      */
     public function createSortie(Request $request): Response
     {
+        $organisateur = $this->getUser();
+
         $sortie = new Sortie();
+        $sortie->setCampus($organisateur->getCampus());
+
         $sortieForm = $this->createForm(SortieType::class, $sortie);
 
         //todo traiter formulaire

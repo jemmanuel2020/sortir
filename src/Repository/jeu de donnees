@@ -1,0 +1,41 @@
+--
+-- Base de données : `sortir`
+--
+USE `sortir`;
+----------------------------------------------------------
+--
+-- Déchargement des données de la table `campus`
+--
+INSERT INTO `campus` (`id_campus`, `nom`) VALUES
+                                              (1, 'ENI Ecole Informatique Nantes'),
+                                              (2, 'ENI Ecole Informatique Rennes'),
+                                              (3, 'ENI Ecole Informatique Quimper'),
+                                              (4, 'ENI Ecole Informatique Niort');
+--
+-- Déchargement des données de la table `etat`
+--
+INSERT INTO `etat` (`id_etat`, `libelle`) VALUES
+                                              (1, 'Créée'),
+                                              (2, 'Ouverte'),
+                                              (3, 'Clôturée'),
+                                              (4, 'Activité en cours'),
+                                              (5, 'Passée'),
+                                              (6, 'Annulée');
+--
+-- Déchargement des données de la table `ville`
+--
+INSERT INTO `ville` (`id_ville`, `nom`, `code_postal`) VALUES
+                                                           (1, 'Saint-Herblain', 44800),
+                                                           (2, 'Chartres-de-Bretagne', 35131),
+                                                           (3, 'Quimper', 29000),
+                                                           (4, 'Niort', 79000),
+                                                           (5, 'Nantes', 44000),
+                                                           (6, 'Rennes', 35000),
+                                                           (7, 'Paris', 75000);
+--
+-- Déchargement des données de la table `lieu`
+--
+INSERT INTO `lieu` (`id_lieu`, `ville_id`, `nom`, `rue`, `latitude`, `longitude`) VALUES
+        (1, 7, 'Le Café A', 'Maison de l\'Architecture, 148 rue du Faubourg Saint-Martin', 48.87548, 2.3602),
+        (2, 6, 'Parc du Thabor', 'Pl. Saint-Mélaine', 48.11442, -1.66919),
+        (3, 3, 'Crêperie La Krampouzerie', '9 rue du Salé, Pl. au Beurre', 47.99677, -4.10322);
