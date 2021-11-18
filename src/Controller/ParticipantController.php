@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Form\ProfilType;
-use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,32 +10,28 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/participant", name="participant_")
+ */
 class ParticipantController extends AbstractController
 {
     /**
-     * @Route("/participant/{idParticipant}", name="participant_profil")
+     * @Route("/edit", name="edit")
      */
-    public function profil(
-        int $idParticipant,
+    public function editProfil(
         Request $request,
         EntityManagerInterface $entityManager,
-        ParticipantRepository $participantRepository,
         UserPasswordHasherInterface $userPasswordHasher
     ): Response
     {
-        $participant = $participantRepository->find(['idParticipant' => $idParticipant]);
-
-        if(!$participant)
-            throw $this->createNotFoundException('Ce profil n\'éxiste pas.');
+        $participant = $this->getUser();
 
         $participantForm = $this->createForm(ProfilType::class, $participant);
+        $participantForm->handleRequest($request);
 
-        //if($participant == $this->getUser())
-        //{
-
-            $participantForm->handleRequest($request);
-
-            if ($participantForm->isSubmitted() && $participantForm->isValid())
+        if ($participantForm->isSubmitted() && $participantForm->isValid())
+        {
+            if($participantForm->get('motPasse')->getData() != null)
             {
                 $participant->setMotPasse(
                     $userPasswordHasher->hashPassword(
@@ -44,21 +39,16 @@ class ParticipantController extends AbstractController
                         $participantForm->get('motPasse')->getData()
                     )
                 );
-
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($participant);
-                $entityManager->flush();
-
-                //$this->addFlash(success, 'Données de profil mises à jour');
-                return $this->redirectToRoute('participant_profil', ['idParticipant' => $idParticipant]);
             }
+            else
+                $participant->setMotPasse($participant->getMotPasse());
 
+            $entityManager->persist($participant);
+            $entityManager->flush();
 
-        //}
-        //else
-        //{
-            //todo itération 1 - 2008
-        //}
+            //$this->addFlash(success, 'Données de profil mises à jour');
+            return $this->redirectToRoute('participant_edit');
+        }
 
         return $this->render('participant/profil.html.twig', [
             'participant' => $participant,
@@ -71,6 +61,8 @@ class ParticipantController extends AbstractController
      */
     public function seeProfil(): Response
     {
+//        if(!$participant)
+//            throw $this->createNotFoundException('Ce profil n\'éxiste pas.');
         //todo itération 1 - 2008
     }
 }

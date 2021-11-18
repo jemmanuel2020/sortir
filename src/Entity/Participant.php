@@ -52,9 +52,9 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      *     minMessage="Minimum 3 caractères !",
      *     maxMessage="Maximum 50 caractères !"
      * )
-     * @Assert\Regex(pattern="/^[a-z0-9_-]+$/i", message="Please use only letters, numbers, underscores and dashes!")
      * @ORM\Column(type="string", length=50, unique=true)
      */
+    //@Assert\Regex(pattern="/^[a-z0-9_-]+$/i", message="Please use only letters, numbers, underscores and dashes!")
     private $pseudo;
 
     /**
@@ -72,6 +72,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @Assert\NotBlank(message="Téléphone manquant")
      * @ORM\Column(type="string", length=35)
+     * @Assert\Regex(pattern="/^(0|\\+33|0033)[1-9][0-9]{8}$/", message="Saississez un numéro français valide")
      */
     private $telephone;
 
