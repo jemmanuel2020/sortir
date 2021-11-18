@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Création sortie
+{% endblock %}
+
+{% block body %}
+    <div id="create-sortie-page">
+
+        <h2>Créer une sortie</h2>
+
+        <div id="div-form-create-sortie">
+            <div>
+                {{  form_start(sortieForm) }}
+                {{  form_widget(sortieForm) }}
+                <div id="button-create-sortie">
+                    <button>Enregistrer</button>
+                    <button>Publier la sortie</button>
+                    <button><a href="{{ path('main_home') }}" title="Retour vers l'acceuil">Annuler</a></button>
+                </div>
+                {{  form_end(sortieForm) }}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

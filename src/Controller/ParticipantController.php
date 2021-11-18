@@ -16,9 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ParticipantController extends AbstractController
 {
     /**
-     * @Route("/edit", name="edit")
+     * @Route("/update", name="update")
      */
-    public function editProfil(
+    public function updateProfil(
         Request $request,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $userPasswordHasher
@@ -31,6 +31,7 @@ class ParticipantController extends AbstractController
 
         if ($participantForm->isSubmitted() && $participantForm->isValid())
         {
+            //Si le champs mdp est rempli on hash le nouveau mdp
             if($participantForm->get('motPasse')->getData() != null)
             {
                 $participant->setMotPasse(
@@ -40,6 +41,7 @@ class ParticipantController extends AbstractController
                     )
                 );
             }
+            //Sinon on reprends le mot de passe existant
             else
                 $participant->setMotPasse($participant->getMotPasse());
 
@@ -47,19 +49,19 @@ class ParticipantController extends AbstractController
             $entityManager->flush();
 
             //$this->addFlash(success, 'Données de profil mises à jour');
-            return $this->redirectToRoute('participant_edit');
+            return $this->redirectToRoute('participant_update');
         }
 
-        return $this->render('participant/profil.html.twig', [
+        return $this->render('participant/updateProfil.html.twig', [
             'participant' => $participant,
             'participantForm' => $participantForm->createView()
         ]);
     }
 
     /**
-     * @Route("/see", name="see")
+     * @Route("/read", name="read")
      */
-    public function seeProfil(): Response
+    public function readProfil(): Response
     {
 //        if(!$participant)
 //            throw $this->createNotFoundException('Ce profil n\'éxiste pas.');

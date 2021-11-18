@@ -1,12 +1,12 @@
 <nav>
     <ul>
         {% if app.user %}
-            {% if app.request.pathinfo != '/participant/1' %}
+            {% if app.request.pathinfo != '/participant/update' and app.request.pathinfo != '/sortie/create' %}
                 <li><a href=# title="Villes">Villes</a></li>
                 <li><a href=# title="Campus">Campus</a></li>
             {% endif %}
             <li><a href="{{ path('main_home') }}" title="Accueil">Accueil</a></li>
-            <li><a href="{{ path('participant_edit') }}" title="Mon profil">Mon profil</a></li>
+            <li><a href="{{ path('participant_update') }}" title="Mon profil">Mon profil</a></li>
             <li><a href="{{ path('app_logout') }}" title="Deconnexion">Se déconnecter ({{ app.user.pseudo }})</a></li>
         {% endif %}
     </ul>

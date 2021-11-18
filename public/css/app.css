@@ -40,6 +40,11 @@ button {
     background-color: #FFFFFF;
 }
 
+button a {
+    text-decoration: none;
+    color: black;
+}
+
 /********************************************** PAGE LOGIN ************************************************/
 #login-page #form{
     display: flex;
@@ -74,10 +79,6 @@ label {
 }
 
 /********************************************** PAGE ACCEUIL ************************************************/
-#acceuil a {
-    text-decoration: none;
-    color: black;
-}
 
 #acceuil button {
     width: auto !important;
@@ -126,11 +127,6 @@ label {
     width: 15.5rem;
 }
 
-#mon-profil a {
-    text-decoration: none;
-    color: black;
-}
-
 #button-profil {
     display: flex;
     justify-content: space-evenly;
@@ -141,3 +137,5 @@ label {
     margin-right: 1rem;
     margin-top: 2rem;
 }
+
+/********************************************** PAGE CREATION SORTIE ************************************************/
