@@ -19,6 +19,10 @@ header {
     justify-content: space-between;
 }
 
+nav {
+    align-self: center;
+}
+
 nav ul {
     display: flex;
     list-style: none;
@@ -27,6 +31,13 @@ nav ul {
 
 nav li {
     margin-right: 1rem;
+}
+
+button {
+    width: 110px;
+    height: 50px;
+    box-shadow: 2px 2px  black;
+    background-color: #FFFFFF;
 }
 
 /********************************************** PAGE LOGIN ************************************************/
@@ -50,10 +61,6 @@ nav li {
 
 #login-bouton {
     margin-right: 2rem;
-    width: 110px;
-    height: 50px;
-    box-shadow: 2px 2px  black;
-    background-color: #FFFFFF;
 }
 
 #label-remember-me-bouton {
@@ -73,7 +80,7 @@ label {
 }
 
 #acceuil button {
-    padding: 1rem;
+    width: auto !important;
 }
 
 /********************************************** PAGE MON PROFIL ************************************************/
@@ -133,8 +140,4 @@ label {
     padding: 1rem;
     margin-right: 1rem;
     margin-top: 2rem;
-    width: 110px;
-    height: 50px;
-    box-shadow: 2px 2px  black;
-    background-color: #FFFFFF;
 }
