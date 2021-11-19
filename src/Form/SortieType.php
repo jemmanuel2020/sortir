@@ -6,6 +6,7 @@ use App\Entity\Campus;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\Ville;
+use DateTime;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -20,6 +21,7 @@ class SortieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $dateHeureDebutMin = new DateTime("tomorrow");
         $builder
             ->add('nom', TextType::class, [
                 'label' => 'Nom de la sortie :'
@@ -27,22 +29,30 @@ class SortieType extends AbstractType
             ->add('dateHeureDebut', DateTimeType::class, [
                 'label' => 'Date et heure de la sortie :',
                 'html5' => true,
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'data' =>  new \DateTime("tomorrow"),
+                'attr' => ['min' => "".$dateHeureDebutMin->format('Y-m-d\TH:i:s').""]
             ])
             ->add('dateLimiteInscription', DateType::class, [
                 'label' => 'Date limite d\'inscription :',
                 'html5' => true,
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'disabled' => true,
+                'attr' => ['min' => "".$dateHeureDebutMin->format('Y-m-d').""]
             ])
             ->add('nbInscriptionsMax', IntegerType::class, [
-                'label' => 'Nombre de places :'
+                'label' => 'Nombre de places :',
+                'data' => 1,
+                'attr' => ['step' => 1, 'min' => 1, 'max' => 500]
             ])
             ->add('duree', IntegerType::class, [
                 'label' => 'Durée (en minutes) :',
-                'data' => 90
+                'data' => 90,
+                'attr' => ['step' => 5, 'min' => 5]
             ])
             ->add('infosSortie', TextareaType::class, [
-                'label' => 'Description et infos :'
+                'label' => 'Description et infos :',
+                'attr' => ['rows' => 7]
             ])
             ->add('campus', EntityType::class, [
                 'label' => 'Campus :',
