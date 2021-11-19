@@ -21,7 +21,7 @@ jQuery(
             let date = new Date($('#sortie_dateHeureDebut').val());
             date.setDate(date.getDate() - 1);
             let formattedDate = formatDate(date);
-            $('#sortie_dateLimiteInscription').removeAttr("disabled").attr({max:formattedDate, value:formattedDate});
+            $('#sortie_dateLimiteInscription').attr({max:formattedDate, value:formattedDate});
         })
 
         /* ---------------  ------------------ */
