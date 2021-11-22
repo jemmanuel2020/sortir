@@ -18,10 +18,10 @@ jQuery(
 
         //Règle pour la date limite d'inscription, doit être au max la veille du jour de la sortie
         $(document).on('change', '#sortie_dateHeureDebut', function (){
-            let date = new Date($('#sortie_dateHeureDebut').val());
+            let date = new Date($(this).val());
             date.setDate(date.getDate() - 1);
             let formattedDate = formatDate(date);
-            $('#sortie_dateLimiteInscription').attr({max:formattedDate, value:formattedDate});
+            $('#sortie_dateLimiteInscription').attr({max:formattedDate, value:formattedDate}).val(formattedDate);
         })
 
         /* ---------------  ------------------ */
