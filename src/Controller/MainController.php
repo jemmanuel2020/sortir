@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Sortie;
-use App\Form\php;
+
+use App\Form\FiltreType;
 use App\Modele\Modele;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +20,7 @@ class MainController extends AbstractController
     {
         $modele = new Modele();
         //dump($modele);
-        $filtreForm = $this->createForm(php::class, $modele);
+        $filtreForm = $this->createForm(FiltreType::class, $modele);
         //dump($modele);
 
         //$filtreForm->handleRequest($request);
