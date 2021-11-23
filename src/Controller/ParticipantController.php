@@ -29,6 +29,7 @@ class ParticipantController extends AbstractController
         $participantForm = $this->createForm(ProfilType::class, $participant);
         $participantForm->handleRequest($request);
 
+        //Si formulaire envoyé et validé
         if ($participantForm->isSubmitted() && $participantForm->isValid())
         {
             //Si le champs mdp est rempli on hash le nouveau mdp

@@ -10,16 +10,32 @@
         <h2>Créer une sortie</h2>
 
         <div id="div-form-create-sortie">
+            {{  form_start(sortieForm) }}
             <div>
-                {{  form_start(sortieForm) }}
-                {{  form_widget(sortieForm) }}
-                <div id="button-create-sortie">
-                    <button>Enregistrer</button>
-                    <button>Publier la sortie</button>
-                    <button><a href="{{ path('main_home') }}" title="Retour vers l'acceuil">Annuler</a></button>
+                <div id="sortie-form-first-part">
+                    {{  form_row(sortieForm.nom) }}
+                    {{  form_row(sortieForm.dateHeureDebut) }}
+                    {{  form_row(sortieForm.dateLimiteInscription) }}
+                    {{  form_row(sortieForm.nbInscriptionsMax) }}
+                    {{  form_row(sortieForm.duree) }}
+                    {{  form_row(sortieForm.infosSortie) }}
                 </div>
-                {{  form_end(sortieForm) }}
+                <div id="sortie-form-second-part">
+                    {{  form_row(sortieForm.campus) }}
+                    {{  form_row(sortieForm.ville) }}
+                    {{  form_row(sortieForm.lieu) }}
+                    {{  form_row(sortieForm.rue) }}
+                    {{  form_row(sortieForm.code_postal) }}
+                    {{  form_row(sortieForm.latitude) }}
+                    {{  form_row(sortieForm.longitude) }}
+                </div>
             </div>
+            <div id="bloc-button-create-sortie">
+                <button>Enregistrer</button>
+                <button>Publier la sortie</button>
+                <button><a href="{{ path('main_home') }}" title="Retour vers l'acceuil">Annuler</a></button>
+            </div>
+            {{  form_end(sortieForm) }}
         </div>
 
     </div>
