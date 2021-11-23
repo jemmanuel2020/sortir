@@ -10,12 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Modele
 {
-    /**
+    /*/**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     */
-    private $id;
+
+    private $id;*/
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -57,10 +57,10 @@ class Modele
      */
     private $sortiePassees;
 
-    public function getId(): ?int
+    /*public function getId(): ?int
     {
         return $this->id;
-    }
+    }*/
 
     public function getNomCampus(): ?string
     {
