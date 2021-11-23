@@ -16,7 +16,7 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="main_home")
      */
-    public function home() : Response
+    public function home(Request $request) : Response
     {
         $modele = new Modele();
         //dump($modele);
