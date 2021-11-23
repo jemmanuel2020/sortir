@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Form\FiltreType;
 use App\Modele\Modele;
+use App\Repository\SortieRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,27 +13,35 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
-    #une methode par page
     /**
      * @Route("/", name="main_home")
      */
-    public function home(Request $request) : Response
+    public function home(
+        Request $request,
+        SortieRepository $sortieRepository
+    ) : Response
     {
         $modele = new Modele();
-        $filtreForm = $this->createForm(FiltreType::class, $modele, [
-            'data_class' => Modele::class,
-        ]);;
+        $filtreForm = $this->createForm(FiltreType::class, $modele);;
         $filtreForm->handleRequest($request);
-        dump($modele);
-        dump($filtreForm->isSubmitted());
+        //dump($modele);
+        //dump($filtreForm->isSubmitted());
 
-        if ($filtreForm->isSubmitted() && $request->isXmlHttpRequest()) {
+        if ($filtreForm->isSubmitted() && $filtreForm->isValid()) {
             $data = $filtreForm->getData();
+
+            return $this->redirectToRoute('main_home');
         }
 
+        //Affichage de la liste
+        $sorties = $sortieRepository->findAll();
+
         return $this->render('main/home.html.twig', [
-            'filtreForm' => $filtreForm->createView()
+            'filtreForm' => $filtreForm->createView(),
+            "sorties" => $sorties
         ]);
+
+
     }
 
 }

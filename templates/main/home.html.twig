@@ -33,16 +33,18 @@
                     <td>Organisateur</td>
                     <td>Actions</td>
                 </tr>
-                <tr>
-                    <td>Philo</td>
-                    <td>19/07/2018 23:45</td>
-                    <td>19/07/2018</td>
-                    <td>8/8</td>
-                    <td>En cours</td>
-                    <td>X</td>
-                    <td>Spinoz A.</td>
-                    <td>Afficher</td>
-                </tr>
+                {% for sortie in sorties %}
+                    <tr>
+                        <td>{{ sortie.nom }}</td>
+                        <td>{{ sortie.dateHeureDebut |date('Y-m-d\\TH:i:sP') }}</td>
+                        <td>{{ sortie.dateLimiteInscription |date('Y-m-d') }}</td>
+                        <td>{{ sortie.nbInscriptionsMax }}</td>
+                        <td>etat</td>
+                        <td>X</td>
+                        <td>nom organisateur</td>
+                        <td>Afficher</td>
+                    </tr>
+                {% endfor %}
             </table>
         </div>
 

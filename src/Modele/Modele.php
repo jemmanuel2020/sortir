@@ -4,6 +4,7 @@ namespace App\Modele;
 
 use App\Repository\ModeleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ModeleRepository::class)
@@ -33,6 +34,7 @@ class Modele
     private $dateSortie1;
 
     /**
+     * @Assert\GreaterThan(propertyPath="dateSortie1")
      * @ORM\Column(type="date", nullable=true)
      */
     private $dateSortie2;
