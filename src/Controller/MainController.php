@@ -19,11 +19,16 @@ class MainController extends AbstractController
     public function home(Request $request) : Response
     {
         $modele = new Modele();
-        $filtreForm = $this->createForm(FiltreType::class, $modele);
-
-        dump($modele);
+        $filtreForm = $this->createForm(FiltreType::class, $modele, [
+            'data_class' => Modele::class,
+        ]);;
         $filtreForm->handleRequest($request);
         dump($modele);
+        dump($filtreForm->isSubmitted());
+
+        if ($filtreForm->isSubmitted() && $request->isXmlHttpRequest()) {
+            $data = $filtreForm->getData();
+        }
 
         return $this->render('main/home.html.twig', [
             'filtreForm' => $filtreForm->createView()
