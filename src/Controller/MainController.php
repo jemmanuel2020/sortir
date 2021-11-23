@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Sortie;
+use App\Form\php;
+use App\Modele\Modele;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
@@ -14,6 +18,16 @@ class MainController extends AbstractController
      */
     public function home() : Response
     {
-        return $this->render('main/home.html.twig');
+        $modele = new Modele();
+        //dump($modele);
+        $filtreForm = $this->createForm(php::class, $modele);
+        //dump($modele);
+
+        //$filtreForm->handleRequest($request);
+
+        return $this->render('main/home.html.twig', [
+            'filtreForm' => $filtreForm->createView()
+        ]);
     }
+
 }

@@ -7,7 +7,7 @@ body {
     min-height: 100vh;
 }
 
-main {
+main:not(#acceuil) {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -79,9 +79,14 @@ label {
 }
 
 /********************************************** PAGE ACCEUIL ************************************************/
-
 #acceuil button {
     width: auto !important;
+}
+
+#acceuil #infos {
+    float: right;
+    display: flex;
+    justify-content: right;
 }
 
 /********************************************** PAGE MON PROFIL ************************************************/

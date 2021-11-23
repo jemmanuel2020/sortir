@@ -3,19 +3,48 @@
 {% block body %}
     <div id="acceuil">
 
-        <div class="">
+        <div id="infos">
             <div>
                 <p>Date du jour : {{ "now"|date("m/d/Y") }}</p>
-                <p>Participant : </p>
+                <p>Participant : {{ app.user.prenom}} {{ app.user.nom | slice(0,1)}}. </p>
             </div>
         </div>
 
         <h2>Filtrer les sorties</h2>
 
-        <form>
-            <label>Campus</label>
-            <input type="select">
-        </form>
+        <div id="filtres">
+            {{  form_start(filtreForm) }}
+            {{  form_widget(filtreForm) }}
+            <div id="button-filtre">
+                <button><a href="{{ path('main_home') }}" title="Recherche">Rechercher</a></button>
+            </div>
+            {{  form_end(filtreForm) }}
+        </div>
+
+        <div id="listeSotie">
+            <table border="1">
+                <tr>
+                    <td>Nom de la sortie</td>
+                    <td>Date de la sortie</td>
+                    <td>Clôture</td>
+                    <td>inscrits/places</td>
+                    <td>Etat</td>
+                    <td>Inscrit</td>
+                    <td>Organisateur</td>
+                    <td>Actions</td>
+                </tr>
+                <tr>
+                    <td>Philo</td>
+                    <td>19/07/2018 23:45</td>
+                    <td>19/07/2018</td>
+                    <td>8/8</td>
+                    <td>En cours</td>
+                    <td>X</td>
+                    <td>Spinoz A.</td>
+                    <td>Afficher</td>
+                </tr>
+            </table>
+        </div>
 
         <button><a href="{{ path('sortie_create') }}" title="Créer une sortie">Créer une sortie</a></button>
 
