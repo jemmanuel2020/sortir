@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+use App\Modele\Modele;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,42 @@ class SortieRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Sortie::class);
+    }
+
+    //Gestion des filtres
+    public function findByFiltre(Modele $modele){
+        $queryBuilder = $this->createQueryBuilder('s');
+        //Filtre nom du campus
+        if (!empty($modele->getNomCampus())){
+            $queryBuilder->andWhere('s.campus LIKE % :m %');
+            $queryBuilder->setParameter('m', $modele->getNomCampus());
+        }
+        //Filtre Nom de la sortie contient
+        if (!empty($modele->getNomSortie())){
+            $queryBuilder->andWhere('s.nom LIKE % :m %');
+            $queryBuilder->setParameter('m', $modele->getNomSortie());
+        }
+        //Filtres dates
+        if (!empty($modele->getDateSortie1()) && !empty($modele->getDateSortie2())){
+            if ($modele->getDateSortie1() < $modele->getDateSortie2()) {
+                $queryBuilder->andWhere('s.dateHeureDebut BETWEEN :d1 AND :d2');
+                $queryBuilder->setParameter('d1', $modele->getDateSortie1());
+                $queryBuilder->setParameter('d2', $modele->getDateSortie2());
+            }
+        }
+
+        //
+
+        //
+
+        //
+        $query = $queryBuilder->getQuery();
+        $query->setMaxResults(7);
+        $results = $query->getResult();
+        dump($results);
+
+
+        return $results;
     }
 
     // /**

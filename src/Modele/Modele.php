@@ -29,13 +29,13 @@ class Modele
     private $nomSortie;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateSortie1;
 
     /**
      * @Assert\GreaterThan(propertyPath="dateSortie1")
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateSortie2;
 
