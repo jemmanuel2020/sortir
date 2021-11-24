@@ -6,13 +6,10 @@ use App\Entity\Campus;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\Ville;
-use App\Repository\LieuRepository;
-use App\Repository\VilleRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -26,12 +23,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SortieType extends AbstractType
 {
-    /*private $entityManager;
+    private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-    }*/
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -39,7 +36,7 @@ class SortieType extends AbstractType
         $dateLimiteInscriptionMax = new DateTime("now");
 
         $builder
-            ->add('$nomCampus', TextType::class, [
+            ->add('nom', TextType::class, [
                 'label' => 'Nom de la sortie :'
             ])
             ->add('dateHeureDebut', DateTimeType::class, [
@@ -73,47 +70,6 @@ class SortieType extends AbstractType
                 'choice_label' => 'nom',
                 'disabled' => true
             ])
-            ->add('ville', EntityType::class, [
-                'label' => 'Ville :',
-                'class' => Ville::class,
-                'choice_label' => 'nom',
-                'mapped' => false,
-                'data' => null
-            ])
-            ->add('lieu', EntityType::class, [
-                'label' => 'Lieu :',
-                'class' => Lieu::class,
-                'choice_label' => 'nom',
-            ])
-            /*->add('lieu', ChoiceType::class, [
-                'label' => 'Lieu :'
-            ]);*/
-            /*->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-                $sortie = $event->getData();
-
-                $form = $event->getForm();
-
-                $formOptions = [
-                    'class' => Lieu::class,
-                    'choice_label' => 'nom',
-                    'query_builder' => function (LieuRepository $lieuRepository) {
-                        return $lieuRepository->findLieuByCity('Paris');
-                    },
-                ];
-
-                // create the field, this is similar the $builder->add()
-                // field name, field type, field options
-                $form->add('lieu', EntityType::class, $formOptions);
-
-                // checks if the Sortie object is "new"
-                // If no data is passed to the form, the data is "null".
-                // This should be considered a new "Sortie"
-                if (!$sortie || null === $sortie->getIdSortie()) {
-                    $form->add('lieu', ChoiceType::class, [
-                        'label' => 'Lieu :'
-                    ]);
-                }
-            })*/
             ->add('rue', EntityType::class, [
                 'label' => 'Rue :',
                 'class' => Lieu::class,
@@ -143,37 +99,40 @@ class SortieType extends AbstractType
                 'disabled' => true
             ])
         ;
-            /*$builder
+            $builder
                 ->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'))
                 ->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'onPreSubmit'))
-            ;*/
+            ;
     }
 
-    /*protected function addElements(FormInterface $form, Ville $ville = null)
+    protected function addElements(FormInterface $form, Ville $ville = null)
     {
-        // 4. Add the lieu element
-        $form->add('lieu', EntityType::class, array(
+        // Ajout du champ ville
+        $form->add('ville', EntityType::class, array(
             'required' => true,
             'data' => $ville,
-            'class' => Lieu::class
+            'class' => Ville::class,
+            'choice_label' => 'nom',
+            'mapped' => false
         ));
 
-        // Lieu empty, unless there is a selected Ville (Edit View)
-        $lieu = array();
+        // Lieu vide, sauf s'il y a une ville sélectionnée (Edit View)
+        $lieux = [];
 
         // If there is a ville stored in the Sortie entity, load the lieu of it
         if ($ville)
         {
             // Fetch Lieu of the Ville if there's a selected ville
-            $lieuRepository = $this->entityManager->getRepository('App:Lieu');
-            $lieu = $lieuRepository->findLieuByCity($ville);
+            $lieuRepository = $this->entityManager->getRepository(Lieu::class);
+            $lieux = $lieuRepository->findLieuByCity($ville);
         }
 
-        // Add the Lieu field with the properly data
+        // Ajout du champ lieu avec les bonnes données
         $form->add('lieu', EntityType::class, array(
             'required' => true,
             'class' => Lieu::class,
-            'choices' => $lieu
+            'choices' => $lieux,
+            'choice_label' => 'nom'
         ));
     }
 
@@ -182,7 +141,7 @@ class SortieType extends AbstractType
         $data = $event->getData();
 
         // Search for selected Ville and convert it into an Entity
-        $ville = $this->entityManager->getRepository('App:Ville')->find($data['ville']);
+        $ville = $this->entityManager->getRepository(Ville::class)->find($data['ville']);
 
         $this->addElements($form, $ville);
     }
@@ -191,11 +150,11 @@ class SortieType extends AbstractType
         $sortie = $event->getData();
         $form = $event->getForm();
 
-        // When you create a new person, the City is always empty
-        $ville = $sortie->getLieu() ? $sortie->getLieu() : null;
+        // When you create a new sortie, the Ville is always empty
+        $ville = $sortie->getLieu() ? $sortie->getLieu()->getVille() : null;
 
         $this->addElements($form, $ville);
-    }*/
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {

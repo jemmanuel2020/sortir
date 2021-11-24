@@ -28,7 +28,7 @@ class ParticipantController extends AbstractController
 
         $participantForm = $this->createForm(ProfilType::class, $participant);
         $participantForm->handleRequest($request);
-
+dump($participantForm->isSubmitted());
         //Si formulaire envoyé et validé
         if ($participantForm->isSubmitted() && $participantForm->isValid())
         {

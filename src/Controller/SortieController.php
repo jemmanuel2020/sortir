@@ -5,9 +5,12 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,18 +32,18 @@ class SortieController extends AbstractController
     {
         $organisateur = $this->getUser();
 
-        //Si l'organisateur à déjà une sortie en état "créee"
-        if($sortieRepository->findOneBy(['organisateur' => $organisateur->getIdParticipant(), 'etat' => '1']) != null)
-        {
-            $sortie = $sortieRepository->findOneBy(['organisateur' => $organisateur->getIdParticipant(), 'etat' => '1']);
-        }
-        //Si aucune sortie n'est enregistrée pour cet organisateur
-        else
-        {
+//        //Si l'organisateur à déjà une sortie en état "créee"
+//        if($sortieRepository->findOneBy(['organisateur' => $organisateur->getIdParticipant(), 'etat' => '1']) != null)
+//        {
+//            $sortie = $sortieRepository->findOneBy(['organisateur' => $organisateur->getIdParticipant(), 'etat' => '1']);
+//        }
+//        //Si aucune sortie n'est enregistrée pour cet organisateur
+//        else
+       // {
             $sortie = new Sortie();
             $sortie->setCampus($organisateur->getCampus());
             $sortie->setOrganisateur($organisateur);
-        }
+       // }
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
@@ -59,6 +62,41 @@ class SortieController extends AbstractController
         return $this->render('sortie/createSortie.html.twig', [
             'sortieForm' => $sortieForm->createView()
         ]);
+    }
+
+    /**
+     * Returns a JSON string with the Lieu of the Ville with the providen id.
+     *
+     * @Route("/listLieux", name="listLieux")
+     * @param Request $request
+     * @param LieuRepository $lieuRepository
+     * @return JsonResponse
+     */
+    public function listLieuOfVilleAction(
+        Request $request,
+        LieuRepository $lieuRepository,
+        VilleRepository $villeRepository
+    )
+    {
+        // Search the lieu that belongs to the ville with the given id as GET parameter "ville_id"
+        $ville = $villeRepository->find($request->query->get("ville_id"));
+        $lieux = $lieuRepository->findLieuByCity($ville);
+
+        // Serialize into an array the data that we need, in this case only name and id
+        // Note: you can use a serializer as well, for explanation purposes, we'll do it manually
+        $responseArray = array();
+        foreach($lieux as $lieu){
+            $responseArray[] = array(
+                "id_lieu" => $lieu->getIdLieu(),
+                "nom" => $lieu->getNom(),
+                "rue" => $lieu->getRue(),
+                "latitude" => $lieu->getLatitude(),
+                "longitude" => $lieu->getLongitude()
+            );
+        }
+
+        // Return array with structure of the neighborhoods of the providen city id
+        return new JsonResponse($responseArray);
     }
 
     /**
