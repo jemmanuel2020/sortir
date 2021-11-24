@@ -28,7 +28,7 @@ class MainController extends AbstractController
         //dump($filtreForm->isSubmitted());
 
         if ($filtreForm->isSubmitted() && $filtreForm->isValid()) {
-            $data = $filtreForm->getData();
+            //$data = $filtreForm->getData();
 
             //$sorties = $sortieRepository->findByFiltre($modele);
 
