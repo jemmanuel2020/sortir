@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+use App\Modele\Modele;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,23 @@ class SortieRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Sortie::class);
+    }
+
+    //Requêtes filtres
+    public function findByFiltre(Modele $modele){
+        $queryBuilder = $this->createQueryBuilder('s');
+        //Filtre Nom de la sortie contient
+        if (!empty($modele->nom)){
+            $queryBuilder->andWhere('s.nomSortie LIKE % :m %');
+            $queryBuilder->setParameter('m', $modele->nom);
+        }
+        $query = $queryBuilder->getQuery();
+        $query->setMaxResults(7);
+        $results = $query->getResult();
+        dump($results);
+
+
+        return $results;
     }
 
     // /**

@@ -34,6 +34,7 @@ class MainController extends AbstractController
         }
 
         //Affichage de la liste
+        //$sorties = $sortieRepository->findByFiltre($modele);
         $sorties = $sortieRepository->findAll();
 
         return $this->render('main/home.html.twig', [
