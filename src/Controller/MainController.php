@@ -24,13 +24,10 @@ class MainController extends AbstractController
         $modele = new Modele();
         $filtreForm = $this->createForm(FiltreType::class, $modele);;
         $filtreForm->handleRequest($request);
-        //dump($modele);
-        //dump($filtreForm->isSubmitted());
+
 
         if ($filtreForm->isSubmitted() && $filtreForm->isValid()) {
-            //$data = $filtreForm->getData();
             dump($modele);
-
             $sorties = $sortieRepository->findByFiltre($modele);
         }
         else {

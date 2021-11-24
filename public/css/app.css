@@ -108,6 +108,15 @@ footer {
     justify-content: right;
 }
 
+#acceuil #filtres {
+    float: left;
+    display: flex;
+    justify-content: left;
+}
+
+#acceuil #listeSortie div {
+    margin-top: 2rem;
+}
 /********************************************** PAGE MON PROFIL ************************************************/
 #mon-profil
 {

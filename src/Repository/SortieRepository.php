@@ -35,20 +35,31 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('s');
         //Filtre nom du campus
         if (!empty($modele->getNomCampus())){
+            dump($modele->getNomCampus());
             $queryBuilder->andWhere('s.campus = :nc');
             $queryBuilder->setParameter('nc', $modele->getNomCampus());
         }
         //Filtre Nom de la sortie contient
         if (!empty($modele->getNomSortie())){
-            $queryBuilder->andWhere('s.nom LIKE % :ns %');
-            $queryBuilder->setParameter('ns', $modele->getNomSortie());
+            $queryBuilder->andWhere('s.nom LIKE :ns');
+            $queryBuilder->setParameter('ns', '%'.$modele->getNomSortie().'%');
         }
         //Filtres dates
-        if (!empty($modele->getDateSortie1()) && !empty($modele->getDateSortie2())){
-            if ($modele->getDateSortie1() < $modele->getDateSortie2()) {
-                $queryBuilder->andWhere('s.dateHeureDebut BETWEEN :d1 AND :d2');
+        if (!empty($modele->getDateSortie1()) OR !empty($modele->getDateSortie2())){
+            if(!empty($modele->getDateSortie1()) && empty($modele->getDateSortie2())){
+                $queryBuilder->andWhere('s.dateHeureDebut >= :d1');
                 $queryBuilder->setParameter('d1', $modele->getDateSortie1());
+            }
+            if(empty($modele->getDateSortie1()) && !empty($modele->getDateSortie2())){
+                $queryBuilder->andWhere('s.dateHeureDebut <= :d2');
                 $queryBuilder->setParameter('d2', $modele->getDateSortie2());
+            }
+            if(!empty($modele->getDateSortie1()) && !empty($modele->getDateSortie2())){
+                if ($modele->getDateSortie1() < $modele->getDateSortie2()) {
+                    $queryBuilder->andWhere('s.dateHeureDebut BETWEEN :d1 AND :d2');
+                    $queryBuilder->setParameter('d1', $modele->getDateSortie1());
+                    $queryBuilder->setParameter('d2', $modele->getDateSortie2());
+                }
             }
         }
         //Filtre Je suis organisateur
@@ -75,14 +86,14 @@ class SortieRepository extends ServiceEntityRepository
         //Filtre Sorties passees
         if (!empty($modele->getSortiePassees())){
             if($modele->getSortiePassees() == true){
-                $queryBuilder->andWhere('s.etat.libelle = :sp');
-                $queryBuilder->setParameter('sp', 'Passée');
+                $queryBuilder->andWhere('s.etat = :sp');
+                $queryBuilder->setParameter('sp', '5');
             }
         }
         $query = $queryBuilder->getQuery();
         $query->setMaxResults(7);
         $results = $query->getResult();
-        dump($results);
+        //dump($results);
 
 
         return $results;

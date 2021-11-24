@@ -21,7 +21,7 @@
             {{  form_end(filtreForm) }}
         </div>
 
-        <div id="listeSotie">
+        <div id="listeSortie">
             <table border="1">
                 <tr>
                     <td>Nom de la sortie</td>
@@ -41,7 +41,7 @@
                         <td>{{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
                         <td>{{ sortie.etat.libelle }}</td>
                         <td>X</td>
-                        <td>nom organisateur</td>
+                        <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
                         <td>Afficher</td>
                     </tr>
                 {% endfor %}
