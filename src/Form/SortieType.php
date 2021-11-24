@@ -39,20 +39,20 @@ class SortieType extends AbstractType
         $dateLimiteInscriptionMax = new DateTime("now");
 
         $builder
-            ->add('$nomCampus', TextType::class, [
+            ->add('nom', TextType::class, [
                 'label' => 'Nom de la sortie :'
             ])
             ->add('dateHeureDebut', DateTimeType::class, [
                 'label' => 'Date et heure de la sortie :',
                 'html5' => true,
-                'widget' => 'single_text',
-                'attr' => ['min' => "".$dateHeureDebutMin->format('Y-m-d\TH:i:s').""]
+                'widget' => 'single_text'
+                //'attr' => ['min' => "".$dateHeureDebutMin->format('Y-m-d\TH:i:s').""]
             ])
             ->add('dateLimiteInscription', DateType::class, [
                 'label' => 'Date limite d\'inscription :',
                 'html5' => true,
-                'widget' => 'single_text',
-                'attr' => ['min' => "".$dateLimiteInscriptionMax->format('Y-m-d').""]
+                'widget' => 'single_text'
+                //'attr' => ['min' => "".$dateLimiteInscriptionMax->format('Y-m-d').""]
             ])
             ->add('nbInscriptionsMax', IntegerType::class, [
                 'label' => 'Nombre de places :',

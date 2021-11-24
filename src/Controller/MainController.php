@@ -29,14 +29,13 @@ class MainController extends AbstractController
 
         if ($filtreForm->isSubmitted() && $filtreForm->isValid()) {
             //$data = $filtreForm->getData();
+            dump($modele);
 
-            //$sorties = $sortieRepository->findByFiltre($modele);
-
-            return $this->redirectToRoute('main_home');
+            $sorties = $sortieRepository->findByFiltre($modele);
         }
         else {
             //Affichage de la liste
-            $sorties = $sortieRepository->findAll();
+            $sorties = $sortieRepository->findByFiltre($modele);
         }
 
         return $this->render('main/home.html.twig', [

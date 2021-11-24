@@ -29,18 +29,13 @@ class SortieController extends AbstractController
     {
         $organisateur = $this->getUser();
 
-        //Si l'organisateur à déjà une sortie en état "créee"
-        if($sortieRepository->findOneBy(['organisateur' => $organisateur->getIdParticipant(), 'etat' => '1']) != null)
-        {
-            $sortie = $sortieRepository->findOneBy(['organisateur' => $organisateur->getIdParticipant(), 'etat' => '1']);
-        }
+
         //Si aucune sortie n'est enregistrée pour cet organisateur
-        else
-        {
-            $sortie = new Sortie();
-            $sortie->setCampus($organisateur->getCampus());
-            $sortie->setOrganisateur($organisateur);
-        }
+
+        $sortie = new Sortie();
+        $sortie->setCampus($organisateur->getCampus());
+        $sortie->setOrganisateur($organisateur);
+
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
@@ -53,7 +48,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            return $this->redirectToRoute('sortie_create');
+            return $this->redirectToRoute('main_home');
         }
 
         return $this->render('sortie/createSortie.html.twig', [
