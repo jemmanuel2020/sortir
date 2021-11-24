@@ -7,7 +7,7 @@ use App\Modele\Modele;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,12 +25,12 @@ class FiltreType extends AbstractType
             ->add('nomSortie', SearchType::class, [
                 'label' => 'Le nom de la sortie contient:'
             ])
-            ->add('dateSortie1', DateType::class, [
+            ->add('dateSortie1', DateTimeType::class, [
                 'label' => 'Entre',
                 'html5' => true,
                 'widget' => 'single_text'
             ])
-            ->add('dateSortie2', DateType::class, [
+            ->add('dateSortie2', DateTimeType::class, [
                 'label' => 'et',
                 'html5' => true,
                 'widget' => 'single_text'

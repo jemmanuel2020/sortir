@@ -20,14 +20,33 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    //Requêtes filtres
+    //Gestion des filtres
     public function findByFiltre(Modele $modele){
         $queryBuilder = $this->createQueryBuilder('s');
-        //Filtre Nom de la sortie contient
-        if (!empty($modele->nom)){
-            $queryBuilder->andWhere('s.nomSortie LIKE % :m %');
-            $queryBuilder->setParameter('m', $modele->nom);
+        //Filtre nom du campus
+        if (!empty($modele->getNomCampus())){
+            $queryBuilder->andWhere('s.campus LIKE % :m %');
+            $queryBuilder->setParameter('m', $modele->getNomCampus());
         }
+        //Filtre Nom de la sortie contient
+        if (!empty($modele->getNomSortie())){
+            $queryBuilder->andWhere('s.nom LIKE % :m %');
+            $queryBuilder->setParameter('m', $modele->getNomSortie());
+        }
+        //Filtres dates
+        if (!empty($modele->getDateSortie1()) && !empty($modele->getDateSortie2())){
+            if ($modele->getDateSortie1() < $modele->getDateSortie2()) {
+                $queryBuilder->andWhere('s.dateHeureDebut BETWEEN :d1 AND :d2');
+                $queryBuilder->setParameter('d1', $modele->getDateSortie1());
+                $queryBuilder->setParameter('d2', $modele->getDateSortie2());
+            }
+        }
+
+        //
+
+        //
+
+        //
         $query = $queryBuilder->getQuery();
         $query->setMaxResults(7);
         $results = $query->getResult();

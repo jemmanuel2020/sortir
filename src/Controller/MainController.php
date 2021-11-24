@@ -30,12 +30,14 @@ class MainController extends AbstractController
         if ($filtreForm->isSubmitted() && $filtreForm->isValid()) {
             $data = $filtreForm->getData();
 
+            //$sorties = $sortieRepository->findByFiltre($modele);
+
             return $this->redirectToRoute('main_home');
         }
-
-        //Affichage de la liste
-        //$sorties = $sortieRepository->findByFiltre($modele);
-        $sorties = $sortieRepository->findAll();
+        else {
+            //Affichage de la liste
+            $sorties = $sortieRepository->findAll();
+        }
 
         return $this->render('main/home.html.twig', [
             'filtreForm' => $filtreForm->createView(),
