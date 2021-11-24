@@ -28,6 +28,7 @@ class SortieRepository extends ServiceEntityRepository
             $queryBuilder->andWhere('s.nomSortie LIKE % :m %');
             $queryBuilder->setParameter('m', $modele->nom);
         }
+        //
         $query = $queryBuilder->getQuery();
         $query->setMaxResults(7);
         $results = $query->getResult();
