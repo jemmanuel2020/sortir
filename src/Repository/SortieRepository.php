@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+use App\Modele\Modele;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,9 +16,87 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SortieRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(
+        ManagerRegistry $registry,
+        Security $security
+    )
     {
         parent::__construct($registry, Sortie::class);
+        $this->security = $security;
+    }
+
+    //Gestion des filtres
+    public function findByFiltre(Modele $modele){
+        $queryBuilder = $this->createQueryBuilder('s');
+        //Filtre nom du campus
+        if (!empty($modele->getNomCampus())){
+            dump($modele->getNomCampus());
+            $queryBuilder->andWhere('s.campus = :nc');
+            $queryBuilder->setParameter('nc', $modele->getNomCampus());
+        }
+        //Filtre Nom de la sortie contient
+        if (!empty($modele->getNomSortie())){
+            $queryBuilder->andWhere('s.nom LIKE :ns');
+            $queryBuilder->setParameter('ns', '%'.$modele->getNomSortie().'%');
+        }
+        //Filtres dates
+        if (!empty($modele->getDateSortie1()) OR !empty($modele->getDateSortie2())){
+            if(!empty($modele->getDateSortie1()) && empty($modele->getDateSortie2())){
+                $queryBuilder->andWhere('s.dateHeureDebut >= :d1');
+                $queryBuilder->setParameter('d1', $modele->getDateSortie1());
+            }
+            if(empty($modele->getDateSortie1()) && !empty($modele->getDateSortie2())){
+                $queryBuilder->andWhere('s.dateHeureDebut <= :d2');
+                $queryBuilder->setParameter('d2', $modele->getDateSortie2());
+            }
+            if(!empty($modele->getDateSortie1()) && !empty($modele->getDateSortie2())){
+                if ($modele->getDateSortie1() < $modele->getDateSortie2()) {
+                    $queryBuilder->andWhere('s.dateHeureDebut BETWEEN :d1 AND :d2');
+                    $queryBuilder->setParameter('d1', $modele->getDateSortie1());
+                    $queryBuilder->setParameter('d2', $modele->getDateSortie2());
+                }
+            }
+        }
+        //Filtre Je suis organisateur
+        if (!empty($modele->getOrganisateur())){
+            if($modele->getOrganisateur() == true){
+                $queryBuilder->andWhere('s.organisateur =  :o');
+                $queryBuilder->setParameter('o', $this->security->getUser());
+            }
+        }
+        //Filtre Je suis inscrit
+        if (!empty($modele->getInscrit())){
+            if($modele->getInscrit() == true){
+                $queryBuilder->andWhere(':user member of s.participants');
+                $queryBuilder->setParameter('user', $this->security->getUser());
+            }
+        }
+        //Filtre Je ne suis pas inscrit
+        if (!empty($modele->getPasInscrit())){
+            if($modele->getPasInscrit() == true){
+                $queryBuilder->andWhere(':u not member of s.participants');
+                $queryBuilder->setParameter('u', $this->security->getUser());
+            }
+        }
+        //Filtre Sorties passees
+        if (!empty($modele->getSortiePassees())){
+            if($modele->getSortiePassees() == true){
+                $queryBuilder->andWhere('s.etat = :sp');
+                $queryBuilder->setParameter('sp', '5');
+            }
+        }
+        $query = $queryBuilder->getQuery();
+        $query->setMaxResults(7);
+        $results = $query->getResult();
+        //dump($results);
+
+
+        return $results;
     }
 
     // /**

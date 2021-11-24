@@ -24,17 +24,16 @@ class MainController extends AbstractController
         $modele = new Modele();
         $filtreForm = $this->createForm(FiltreType::class, $modele);;
         $filtreForm->handleRequest($request);
-        //dump($modele);
-        //dump($filtreForm->isSubmitted());
+
 
         if ($filtreForm->isSubmitted() && $filtreForm->isValid()) {
-            $data = $filtreForm->getData();
-
-            return $this->redirectToRoute('main_home');
+            dump($modele);
+            $sorties = $sortieRepository->findByFiltre($modele);
         }
-
-        //Affichage de la liste
-        $sorties = $sortieRepository->findAll();
+        else {
+            //Affichage de la liste
+            $sorties = $sortieRepository->findByFiltre($modele);
+        }
 
         return $this->render('main/home.html.twig', [
             'filtreForm' => $filtreForm->createView(),

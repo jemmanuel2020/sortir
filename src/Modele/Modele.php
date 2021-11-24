@@ -3,6 +3,7 @@
 namespace App\Modele;
 
 use App\Repository\ModeleRepository;
+use App\Entity\Campus;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -19,7 +20,7 @@ class Modele
     private $id;*/
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var ?Campus
      */
     private $nomCampus;
 
@@ -29,13 +30,13 @@ class Modele
     private $nomSortie;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateSortie1;
 
     /**
      * @Assert\GreaterThan(propertyPath="dateSortie1")
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateSortie2;
 
@@ -64,12 +65,12 @@ class Modele
         return $this->id;
     }*/
 
-    public function getNomCampus(): ?string
+    public function getNomCampus(): ?Campus
     {
         return $this->nomCampus;
     }
 
-    public function setNomCampus(?string $nomCampus): self
+    public function setNomCampus(?Campus $nomCampus): self
     {
         $this->nomCampus = $nomCampus;
 

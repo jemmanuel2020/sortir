@@ -118,4 +118,13 @@ class Campus
 
         return $this;
     }
+
+    public function getDisplayName(Campus $campus):string{
+        return $campus->getNom();
+    }
+
+    public function __toString()
+    {
+        return $this->nom;
+    }
 }

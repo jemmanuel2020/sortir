@@ -14,14 +14,14 @@
 
         <div id="filtres">
             {{  form_start(filtreForm) }}
-            {{  form_widget(filtreForm) }}
+            {{  form_row(filtreForm) }}
             <div id="button-filtre">
-                <button><a href="{{ path('main_home') }}" title="Recherche">Rechercher</a></button>
+                <button type="submit">Rechercher</button>
             </div>
             {{  form_end(filtreForm) }}
         </div>
 
-        <div id="listeSotie">
+        <div id="listeSortie">
             <table border="1">
                 <tr>
                     <td>Nom de la sortie</td>
@@ -38,10 +38,10 @@
                         <td>{{ sortie.nom }}</td>
                         <td>{{ sortie.dateHeureDebut |date('d/m/y H:i') }}</td>
                         <td>{{ sortie.dateLimiteInscription |date('d/m/y') }}</td>
-                        <td>{{ sortie.nbInscriptionsMax }}</td>
-                        <td>etat</td>
+                        <td>{{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
+                        <td>{{ sortie.etat.libelle }}</td>
                         <td>X</td>
-                        <td>nom organisateur</td>
+                        <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
                         <td>Afficher</td>
                     </tr>
                 {% endfor %}
