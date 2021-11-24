@@ -9,14 +9,25 @@
                 <p>Participant : {{ app.user.prenom}} {{ app.user.nom | slice(0,1)}}. </p>
             </div>
         </div>
-
         <h2>Filtrer les sorties</h2>
 
         <div id="filtres">
             {{  form_start(filtreForm) }}
-            {{  form_row(filtreForm) }}
-            <div id="button-filtre">
-                <button type="submit">Rechercher</button>
+            <div>
+                <div>
+                    {{  form_row(filtreForm.nomCampus) }} <br>
+                    {{  form_row(filtreForm.nomSortie) }}<br>
+                    {{  form_row(filtreForm.dateSortie1) }} {{  form_row(filtreForm.dateSortie2) }}<br>
+                </div>
+                <div>
+                    {{  form_row(filtreForm.organisateur) }}<br><br>
+                    {{  form_row(filtreForm.inscrit) }}<br><br>
+                    {{  form_row(filtreForm.pasInscrit) }}<br><br>
+                    {{  form_row(filtreForm.sortiepassees) }}
+                </div>
+                <div id="button-filtre">
+                    <button type="submit">Rechercher</button>
+                </div>
             </div>
             {{  form_end(filtreForm) }}
         </div>

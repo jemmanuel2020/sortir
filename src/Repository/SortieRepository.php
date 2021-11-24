@@ -35,7 +35,6 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('s');
         //Filtre nom du campus
         if (!empty($modele->getNomCampus())){
-            dump($modele->getNomCampus());
             $queryBuilder->andWhere('s.campus = :nc');
             $queryBuilder->setParameter('nc', $modele->getNomCampus());
         }

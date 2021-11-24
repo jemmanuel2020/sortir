@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Participant;
 use App\Form\FiltreType;
 use App\Modele\Modele;
 use App\Repository\SortieRepository;
@@ -21,13 +22,20 @@ class MainController extends AbstractController
         SortieRepository $sortieRepository
     ) : Response
     {
+        $participant = new Participant();
+        $participant = $this->getUser();
         $modele = new Modele();
+        dump($participant);
+        $modele->setNomCampus($participant->getCampus());
+        $modele->setOrganisateur(true);
+        $modele->setInscrit(true);
+        $modele->setPasInscrit(true);
+
         $filtreForm = $this->createForm(FiltreType::class, $modele);;
         $filtreForm->handleRequest($request);
 
 
         if ($filtreForm->isSubmitted() && $filtreForm->isValid()) {
-            dump($modele);
             $sorties = $sortieRepository->findByFiltre($modele);
         }
         else {
