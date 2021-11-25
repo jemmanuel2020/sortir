@@ -67,7 +67,8 @@ button a {
 table{
     border-collapse: collapse;
     margin-bottom: 1rem;
-    margin-top: 1rem;
+    margin-top: 3rem;
+    width: 100%;
 }
 
 td{
@@ -122,14 +123,41 @@ footer {
     justify-content: right;
 }
 
+#acceuil #infos > div {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-right: 2rem;
+}
+
 #acceuil #filtres {
-    float: left;
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
+}
+
+#acceuil #button-filtre{
+    align-self: center;
+}
+
+#acceuil #button-filtre > button{
+    padding: 1rem 2rem;
 }
 
 #acceuil #listeSortie div {
     margin-top: 2rem;
+}
+
+#acceuil label {
+    width: auto;
+}
+
+#acceuil #acceuil-filtres-partLeft, #acceuil #acceuil-filtres-partRight {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#acceuil #acceuil-filtres-date {
+    display: flex;
 }
 /********************************************** PAGE MON PROFIL ************************************************/
 #mon-profil

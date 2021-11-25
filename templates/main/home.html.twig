@@ -11,26 +11,27 @@
         </div>
         <h2>Filtrer les sorties</h2>
 
+        {{  form_start(filtreForm) }}
         <div id="filtres">
-            {{  form_start(filtreForm) }}
-            <div>
-                <div id="acceuil-filtres-partLeft">
-                    {{  form_row(filtreForm.nomCampus) }} <br>
-                    {{  form_row(filtreForm.nomSortie) }}<br>
-                    {{  form_row(filtreForm.dateSortie1) }} {{  form_row(filtreForm.dateSortie2) }}<br>
-                </div>
-                <div id="acceuil-filtres-partRight">
-                    {{  form_row(filtreForm.organisateur) }}<br><br>
-                    {{  form_row(filtreForm.inscrit) }}<br><br>
-                    {{  form_row(filtreForm.pasInscrit) }}<br><br>
-                    {{  form_row(filtreForm.sortiepassees) }}
-                </div>
-                <div id="button-filtre">
-                    <button type="submit">Rechercher</button>
+            <div id="acceuil-filtres-partLeft">
+                {{  form_row(filtreForm.nomCampus) }}
+                {{  form_row(filtreForm.nomSortie) }}
+                <div id="acceuil-filtres-date">
+                    {{  form_row(filtreForm.dateSortie1) }}
+                    {{  form_row(filtreForm.dateSortie2) }}
                 </div>
             </div>
-            {{  form_end(filtreForm) }}
+            <div id="acceuil-filtres-partRight">
+                {{  form_row(filtreForm.organisateur) }}
+                {{  form_row(filtreForm.inscrit) }}
+                {{  form_row(filtreForm.pasInscrit) }}
+                {{  form_row(filtreForm.sortiepassees) }}
+            </div>
+            <div id="button-filtre">
+                <button type="submit">Rechercher</button>
+            </div>
         </div>
+        {{  form_end(filtreForm) }}
 
         <div id="listeSortie">
             <table border="1">

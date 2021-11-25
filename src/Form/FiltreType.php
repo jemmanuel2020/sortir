@@ -20,21 +20,21 @@ class FiltreType extends AbstractType
             ->add('nomCampus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'nom',
-                'label' => 'Campus',
+                'label' => 'Campus : ',
                 'required' => false
             ])
             ->add('nomSortie', SearchType::class, [
-                'label' => 'Le nom de la sortie contient:',
+                'label' => 'Le nom de la sortie contient : ',
                 'required' => false
             ])
             ->add('dateSortie1', DateTimeType::class, [
-                'label' => 'Entre',
+                'label' => 'Entre ',
                 'html5' => true,
                 'widget' => 'single_text',
                 'required' => false
             ])
             ->add('dateSortie2', DateTimeType::class, [
-                'label' => 'et',
+                'label' => 'et ',
                 'html5' => true,
                 'widget' => 'single_text',
                 'required' => false
