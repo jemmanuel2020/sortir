@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Détails sortie
+{% endblock %}
+
+{% block body %}
+    <div id="create-sortie-page">
+
+        <h2>Afficher une sortie</h2>
+
+        <div id="div-form-create-sortie">
+            <div id="sortie-form-first-part" style="float: left; " >
+                <p id="libelle">Nom de la sortie:</p> <p id="valeur">{{ sortie.nom }}</p>
+                <p id="libelle">Date et heure de la sortie:</p> <p id="valeur">{{ sortie.dateHeureDebut |date('d/m/y H:i') }}</p>
+                <p id="libelle">Date limite d'inscription:</p> <p id="valeur">{{ sortie.dateLimiteInscription |date('d/m/y') }}</p>
+                <p id="libelle">Nombre de places:</p> <p id="valeur">{{ sortie.nbInscriptionsMax }}</p>
+                <p id="libelle">Durée:</p> <p id="valeur">{{ sortie.duree }} minutes</p>
+                <p id="libelle">Description et infos:</p> <p id="valeur">{{ sortie.infosSortie }}</p>
+            </div>
+            <div id="sortie-form-second-part" style="float: right; margin-left: 10rem;">
+                <p id="libelle" style="display: flex">Campus:</p> <p id="valeur">{{ sortie.campus.nom }}</p>
+                <p id="libelle">Lieu:</p> <p id="valeur">{{ sortie.lieu.nom }}</p>
+                <p id="libelle">Rue:</p> <p id="valeur">{{ sortie.lieu.rue }}</p>
+                <p id="libelle">Ville:</p> <p id="valeur">{{ sortie.lieu.ville.nom }}</p>
+                <p id="libelle">Code postal:</p> <p id="valeur">{{ sortie.lieu.ville.codePostal }}</p>
+                <p id="libelle">Latitude:</p> <p id="valeur">{{ sortie.lieu.latitude }}</p>
+                <p id="libelle">Longitude:</p> <p id="valeur">{{ sortie.lieu.longitude }}</p>
+            </div>
+        </div>
+        <div >
+            <br><br><br>
+            <h4 style="margin-top: 5rem">Liste des participants inscrits:</h4>
+            <table>
+                <tr>
+                    <td>Pseudo</td>
+                    <td>Nom</td>
+                </tr>
+                {% for participant in participants %}
+                    <tr>
+                        <td>{{ participant.pseudo }}</td>
+                        <td>{{ participant.prenom }} {{ participant.nom }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}
