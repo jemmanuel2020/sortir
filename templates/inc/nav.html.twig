@@ -1,7 +1,7 @@
 <nav>
     <ul>
         {% if app.user %}
-            {% if app.request.pathinfo == '/' %}
+            {% if app.request.pathinfo == '/admin' %}
                 <li><a href=# title="Villes">Villes</a></li>
                 <li><a href=# title="Campus">Campus</a></li>
             {% endif %}
