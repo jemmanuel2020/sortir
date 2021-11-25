@@ -14,12 +14,12 @@
         <div id="filtres">
             {{  form_start(filtreForm) }}
             <div>
-                <div>
+                <div id="acceuil-filtres-partLeft">
                     {{  form_row(filtreForm.nomCampus) }} <br>
                     {{  form_row(filtreForm.nomSortie) }}<br>
                     {{  form_row(filtreForm.dateSortie1) }} {{  form_row(filtreForm.dateSortie2) }}<br>
                 </div>
-                <div>
+                <div id="acceuil-filtres-partRight">
                     {{  form_row(filtreForm.organisateur) }}<br><br>
                     {{  form_row(filtreForm.inscrit) }}<br><br>
                     {{  form_row(filtreForm.pasInscrit) }}<br><br>
@@ -57,7 +57,19 @@
                             {% endif %}
                         </td>
                         <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
-                        <td>Afficher - Modifier</td>
+                        <td>
+                            {% if sortie.organisateur  == app.user %}
+                                {% if sortie.etat.libelle == 'En création' %}
+                                    Modifier - Publier
+                                {% else %}
+                                    Afficher - Annuler
+                                {% endif %}
+                            {% elseif not (sortie.organisateur  == app.user) and app.user in sortie.participants %}
+                                Afficher - Se désister
+                            {% else %}
+                                Afficher - S'inscrire
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
