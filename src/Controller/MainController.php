@@ -22,14 +22,12 @@ class MainController extends AbstractController
         SortieRepository $sortieRepository
     ) : Response
     {
-        $participant = new Participant();
+        //$participant = new Participant();
         $participant = $this->getUser();
         $modele = new Modele();
-        dump($participant);
+        //Filtres activés par défaut
         $modele->setNomCampus($participant->getCampus());
         $modele->setOrganisateur(true);
-        $modele->setInscrit(true);
-        $modele->setPasInscrit(true);
 
         $filtreForm = $this->createForm(FiltreType::class, $modele);;
         $filtreForm->handleRequest($request);
