@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
 use App\Entity\Sortie;
+use App\Form\ReadSortieType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
@@ -126,14 +128,26 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/read", name="read")
+     * @Route("/read/{idSortie}", name="read")
      */
-    public function readSortie(): Response
+    public function readSortie(
+        int $idSortie,
+        SortieRepository $sortieRepository
+    ): Response
     {
-        return $this->render('sortie/createSortie.html.twig', [
-            'controller_name' => 'SortieController',
+        $sortie = new Sortie();
+        $sortie = $sortieRepository->find($idSortie);
+
+        $participants = $sortie->getParticipants();
+
+        return $this->render('sortie/readSortie.html.twig', [
+            'idSortie' => $idSortie,
+            "participants" => $participants,
+            "sortie" => $sortie
         ]);
     }
+
+
 
     /**
      * @Route("/delete/{idSortie}", name="delete")

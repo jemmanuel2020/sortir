@@ -64,21 +64,21 @@
                                     {% if sortie.etat.libelle == 'Créée' %}
                                         <a href="{{ path('sortie_update', {'idSortie': sortie.idSortie}) }}">Modifier</a> - <a href="{{ path('sortie_publier', {'idSortie': sortie.idSortie}) }}">Publier</a>
                                     {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
-                                        Afficher - Annuler
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a> - Annuler
                                     {% else %}
-                                        Afficher
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a>
                                     {% endif %}
                                 {% elseif not (sortie.organisateur  == app.user) and app.user in sortie.participants %}
                                     {% if sortie.etat.libelle == 'Ouverte' or (sortie.etat.libelle == 'Clôturée' and  date() < date(sortie.dateLimiteInscription)) %}
-                                        Afficher - <a href="{{ path('sortie_desinscrire', {'idSortie': sortie.idSortie}) }}">Se désister</a>
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a> - <a href="{{ path('sortie_desinscrire', {'idSortie': sortie.idSortie}) }}">Se désister</a>
                                     {% else %}
-                                        Afficher
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a>
                                     {% endif %}
                                 {% else %}
                                     {% if sortie.etat.libelle == 'Ouverte' and  date() < date(sortie.dateLimiteInscription) %}
-                                        Afficher - <a href="{{ path('sortie_inscrire', {'idSortie': sortie.idSortie}) }}">S'inscrire</a>
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a> - <a href="{{ path('sortie_inscrire', {'idSortie': sortie.idSortie}) }}">S'inscrire</a>
                                     {% else %}
-                                        Afficher
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a>
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -101,21 +101,21 @@
                                     {% if sortie.etat.libelle == 'Créée' %}
                                         <a href="{{ path('sortie_update', {'idSortie': sortie.idSortie}) }}">Modifier</a> - <a href="{{ path('sortie_publier', {'idSortie': sortie.idSortie}) }}">Publier</a>
                                     {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
-                                        Afficher - Annuler
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a> - Annuler
                                     {% else %}
-                                        Afficher
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a>
                                     {% endif %}
                                 {% elseif not (sortie.organisateur  == app.user) and app.user in sortie.participants %}
                                     {% if sortie.etat.libelle == 'Ouverte' or (sortie.etat.libelle == 'Clôturée' and  date() < date(sortie.dateLimiteInscription)) %}
-                                        Afficher - <a href="{{ path('sortie_desinscrire', {'idSortie': sortie.idSortie}) }}">Se désister</a>
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a> - <a href="{{ path('sortie_desinscrire', {'idSortie': sortie.idSortie}) }}">Se désister</a>
                                     {% else %}
-                                        Afficher
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a>
                                     {% endif %}
                                 {% else %}
                                     {% if sortie.etat.libelle == 'Ouverte' and  date() < date(sortie.dateLimiteInscription) %}
-                                        Afficher - <a href="{{ path('sortie_inscrire', {'idSortie': sortie.idSortie}) }}">S'inscrire</a>
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a> - <a href="{{ path('sortie_inscrire', {'idSortie': sortie.idSortie}) }}">S'inscrire</a>
                                     {% else %}
-                                        Afficher
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a>
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -138,21 +138,21 @@
                                     {% if sortie.etat.libelle == 'Créée' %}
                                         <a href="{{ path('sortie_update', {'idSortie': sortie.idSortie}) }}">Modifier</a> - <a href="{{ path('sortie_publier', {'idSortie': sortie.idSortie}) }}">Publier</a>
                                     {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
-                                        Afficher - Annuler
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a> - Annuler
                                     {% else %}
-                                        Afficher
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a>
                                     {% endif %}
                                 {% elseif not (sortie.organisateur  == app.user) and app.user in sortie.participants %}
                                     {% if sortie.etat.libelle == 'Ouverte' or (sortie.etat.libelle == 'Clôturée' and  date() < date(sortie.dateLimiteInscription)) %}
-                                        Afficher - <a href="{{ path('sortie_desinscrire', {'idSortie': sortie.idSortie}) }}">Se désister</a>
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a> - <a href="{{ path('sortie_desinscrire', {'idSortie': sortie.idSortie}) }}">Se désister</a>
                                     {% else %}
-                                        Afficher
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a>
                                     {% endif %}
                                 {% else %}
                                     {% if sortie.etat.libelle == 'Ouverte' and  date() < date(sortie.dateLimiteInscription) %}
-                                        Afficher - <a href="{{ path('sortie_inscrire', {'idSortie': sortie.idSortie}) }}">S'inscrire</a>
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a> - <a href="{{ path('sortie_inscrire', {'idSortie': sortie.idSortie}) }}">S'inscrire</a>
                                     {% else %}
-                                        Afficher
+                                        <a href="{{ path('sortie_read', {'idSortie': sortie.idSortie}) }}">Afficher</a>
                                     {% endif %}
                                 {% endif %}
                             </td>
