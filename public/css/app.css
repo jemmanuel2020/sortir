@@ -169,8 +169,8 @@ footer {
     margin-top: 2rem;
 }
 
-/********************************************** PAGE CREATION SORTIE ************************************************/
-#create-sortie-page h2{
+/********************************************** PAGE CREATION ET MODIFIER SORTIE ************************************************/
+#create-sortie-page h2, #update-sortie-page h2 {
     text-align: center;
 }
 
@@ -186,7 +186,8 @@ footer {
     margin-bottom: 1.5rem;
 }
 
-#create-sortie-page input , #create-sortie-page textarea, #create-sortie-page select {
+#create-sortie-page input , #create-sortie-page textarea, #create-sortie-page select,
+#update-sortie-page input , #update-sortie-page textarea, #update-sortie-page select {
     width: 15rem;
 }
 

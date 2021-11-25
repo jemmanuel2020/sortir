@@ -32,18 +32,9 @@ class SortieController extends AbstractController
     {
         $organisateur = $this->getUser();
 
-//        //Si l'organisateur à déjà une sortie en état "créee"
-//        if($sortieRepository->findOneBy(['organisateur' => $organisateur->getIdParticipant(), 'etat' => '1']) != null)
-//        {
-//            $sortie = $sortieRepository->findOneBy(['organisateur' => $organisateur->getIdParticipant(), 'etat' => '1']);
-//        }
-//        //Si aucune sortie n'est enregistrée pour cet organisateur
-//        else
-       // {
-            $sortie = new Sortie();
-            $sortie->setCampus($organisateur->getCampus());
-            $sortie->setOrganisateur($organisateur);
-       // }
+        $sortie = new Sortie();
+        $sortie->setCampus($organisateur->getCampus());
+        $sortie->setOrganisateur($organisateur);
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
@@ -83,7 +74,6 @@ class SortieController extends AbstractController
         $lieux = $lieuRepository->findLieuByCity($ville);
 
         // Serialize into an array the data that we need, in this case only name and id
-        // Note: you can use a serializer as well, for explanation purposes, we'll do it manually
         $responseArray = array();
         foreach($lieux as $lieu){
             $responseArray[] = array(
@@ -100,12 +90,32 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/update", name="update")
+     * @Route("/update/{idSortie}", name="update")
      */
-    public function updateSortie(): Response
+    public function updateSortie(
+        int $idSortie,
+        Request $request,
+        SortieRepository $sortieRepository,
+        EntityManagerInterface $entityManager
+    ): Response
     {
-        return $this->render('sortie/createSortie.html.twig', [
-            'controller_name' => 'SortieController',
+        $sortie = $sortieRepository->find($idSortie);
+
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $sortieForm->handleRequest($request);
+
+        //Si formulaire envoyé et validé
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid())
+        {
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('main_home');
+        }
+
+        return $this->render('sortie/updateSortie.html.twig', [
+            'idSortie' => $idSortie,
+            'sortieForm' => $sortieForm->createView()
         ]);
     }
 
@@ -117,5 +127,17 @@ class SortieController extends AbstractController
         return $this->render('sortie/createSortie.html.twig', [
             'controller_name' => 'SortieController',
         ]);
+    }
+
+    /**
+     * @Route("/delete/{idSortie}", name="delete")
+     */
+    public function deleteSortie(int $idSortie, SortieRepository $sortieRepository, EntityManagerInterface $entityManager): Response
+    {
+        $sortie = $sortieRepository->find($idSortie);
+        $entityManager->remove($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('main_home');
     }
 }

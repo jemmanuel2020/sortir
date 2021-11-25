@@ -1,19 +1,24 @@
 jQuery(
     function ($)
     {
-        /* --------------- Page CREATION SORTIE ------------------ */
-
-        //Choix vide par défaut pour les élements select
-        $('#sortie_ville, #sortie_lieu, #sortie_rue, #sortie_code_postal, #sortie_latitude, #sortie_longitude')
+        //Choix vide par défaut pour les élements select - PAGE CREATION SORTIE
+        $('#create-sortie-page #sortie_ville, ' +
+            '#create-sortie-page #sortie_lieu, ' +
+            '#create-sortie-page #sortie_rue, ' +
+            '#create-sortie-page #sortie_code_postal, ' +
+            '#create-sortie-page #sortie_latitude, ' +
+            '#create-sortie-page #sortie_longitude')
             .prepend('<option value="" selected></option>');
 
+        //Evenement 'on change' AJAX
         $(document).on('change', '#sortie_ville', function () {
             //var nomVilleSelectionnee = $('#sortie_ville option:selected').text();
             $("#sortie_ville option[value='']").remove();
 
             // Requête les lieux de la ville sélectionnée.
             $.ajax({
-                url: window.location.href.replace('create', 'listLieux'),
+                //url: window.location.href.replace('create', 'listLieux'),
+                url: 'http://localhost:8080/sortir/public/sortie/listLieux',
                 type: "GET",
                 dataType: "JSON",
                 data: {

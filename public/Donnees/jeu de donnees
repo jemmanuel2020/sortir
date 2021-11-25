@@ -39,3 +39,10 @@ INSERT INTO `lieu` (`id_lieu`, `ville_id`, `nom`, `rue`, `latitude`, `longitude`
         (1, 7, 'Le Café A', 'Maison de l\'Architecture, 148 rue du Faubourg Saint-Martin', 48.87548, 2.3602),
         (2, 6, 'Parc du Thabor', 'Pl. Saint-Mélaine', 48.11442, -1.66919),
         (3, 3, 'Crêperie La Krampouzerie', '9 rue du Salé, Pl. au Beurre', 47.99677, -4.10322);
+
+--
+-- Déchargement des données de la table `sortie`
+--
+INSERT INTO `sortie` (`id_sortie`, `lieu_id`, `campus_id`, `etat_id`, `organisateur_id`, `nom`, `date_heure_debut`, `duree`, `date_limite_inscription`, `nb_inscriptions_max`, `infos_sortie`) VALUES
+        (5, 1, 2, 1, 1, 'Sortie Café A', '2021-12-03 00:00:00', 150, '2021-11-30', 5, 'Boire un coup entre potes !!!'),
+        (6, 3, 2, 1, 1, 'On mange crêpes ??', '2021-11-27 16:33:00', 60, '2021-11-26', 4, 'Crêpes entre potes !');

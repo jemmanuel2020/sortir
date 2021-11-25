@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="update-sortie-page">
+
+        <h2>Créer une sortie</h2>
+
+        <div id="div-form-create-sortie">
+            {{  form_start(sortieForm) }}
+            <div>
+                <div id="sortie-form-first-part">
+                    {{  form_row(sortieForm.nom) }}
+                    {{  form_row(sortieForm.dateHeureDebut) }}
+                    {{  form_row(sortieForm.dateLimiteInscription) }}
+                    {{  form_row(sortieForm.nbInscriptionsMax) }}
+                    {{  form_row(sortieForm.duree) }}
+                    {{  form_row(sortieForm.infosSortie) }}
+                </div>
+                <div id="sortie-form-second-part">
+                    {{  form_row(sortieForm.campus) }}
+                    {{  form_row(sortieForm.ville) }}
+                    {{  form_row(sortieForm.lieu) }}
+                    {{  form_row(sortieForm.rue) }}
+                    {{  form_row(sortieForm.code_postal) }}
+                    {{  form_row(sortieForm.latitude) }}
+                    {{  form_row(sortieForm.longitude) }}
+                </div>
+            </div>
+            <div id="bloc-button-create-sortie">
+                <button type="submit" name="modifier">Modifier</button>
+                <button name="publier">Publier la sortie</button>
+                <button name="supprimer"><a href="{{ path('sortie_delete', {'idSortie': idSortie}) }}" title="supprimer">Supprimer la sortie</a></button>
+                <button><a href="{{ path('main_home') }}" title="Retour vers l'acceuil">Annuler</a></button>
+            </div>
+            {{  form_end(sortieForm) }}
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | Création sortie
+{% endblock %}
+

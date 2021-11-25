@@ -59,8 +59,8 @@
                         <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
                         <td>
                             {% if sortie.organisateur  == app.user %}
-                                {% if sortie.etat.libelle == 'En création' %}
-                                    Modifier - Publier
+                                {% if sortie.etat.libelle == 'Créée' %}
+                                    <a href="{{ path('sortie_update', {'idSortie': sortie.idSortie}) }}">Modifier</a> - Publier
                                 {% else %}
                                     Afficher - Annuler
                                 {% endif %}
