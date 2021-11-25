@@ -61,13 +61,21 @@
                             {% if sortie.organisateur  == app.user %}
                                 {% if sortie.etat.libelle == 'En création' %}
                                     Modifier - Publier
-                                {% else %}
+                                {% elseif sortie.etat.libelle == 'Ouverte'  %}
                                     Afficher - Annuler
                                 {% endif %}
                             {% elseif not (sortie.organisateur  == app.user) and app.user in sortie.participants %}
-                                Afficher - Se désister
+                                {% if sortie.etat.libelle == 'Ouverte' %}
+                                    Afficher - Se désister
+                                {% else %}
+                                    Afficher
+                                {% endif %}
                             {% else %}
-                                Afficher - S'inscrire
+                                {% if sortie.etat.libelle == 'Ouverte' %}
+                                    Afficher - S'inscrire
+                                {% else %}
+                                    Afficher
+                                {% endif %}
                             {% endif %}
                         </td>
                     </tr>
