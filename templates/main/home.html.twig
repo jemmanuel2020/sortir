@@ -45,42 +45,121 @@
                     <td>Actions</td>
                 </tr>
                 {% for sortie in sorties %}
-                    <tr>
-                        <td>{{ sortie.nom }}</td>
-                        <td>{{ sortie.dateHeureDebut |date('d/m/y H:i') }}</td>
-                        <td>{{ sortie.dateLimiteInscription |date('d/m/y') }}</td>
-                        <td>{{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
-                        <td>{{ sortie.etat.libelle }}</td>
-                        <td>
-                            {% if app.user in sortie.participants %}
-                                X
-                            {% endif %}
-                        </td>
-                        <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
-                        <td>
-                            {% if sortie.organisateur  == app.user %}
-                                {% if sortie.etat.libelle == 'Créée' %}
-                                    Modifier - Publier
-                                {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
-                                    Afficher - Annuler
-                                {% else %}
-                                    Afficher
+                    {% if sortie.etat.libelle == 'Créée' and sortie.organisateur  == app.user %}
+                        <tr>
+                            <td>{{ sortie.nom }}</td>
+                            <td>{{ sortie.dateHeureDebut |date('d/m/y H:i') }}</td>
+                            <td>{{ sortie.dateLimiteInscription |date('d/m/y') }}</td>
+                            <td>{{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
+                            <td>{{ sortie.etat.libelle }}</td>
+                            <td>
+                                {% if app.user in sortie.participants %}
+                                    X
                                 {% endif %}
-                            {% elseif not (sortie.organisateur  == app.user) and app.user in sortie.participants %}
-                                {% if sortie.etat.libelle == 'Ouverte' or (sortie.etat.libelle == 'Clôturée' and  date()  < date(sortie.dateLimiteInscription))  %}
-                                    Afficher - Se désister
+                            </td>
+                            <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
+                            <td>
+                                {% if sortie.organisateur  == app.user %}
+                                    {% if sortie.etat.libelle == 'Créée' %}
+                                        Modifier - Publier
+                                    {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
+                                        Afficher - Annuler
+                                    {% else %}
+                                        Afficher
+                                    {% endif %}
+                                {% elseif not (sortie.organisateur  == app.user) and app.user in sortie.participants %}
+                                    {% if sortie.etat.libelle == 'Ouverte' or (sortie.etat.libelle == 'Clôturée' and  date() < date(sortie.dateLimiteInscription)) %}
+                                        Afficher - Se désister
+                                    {% else %}
+                                        Afficher
+                                    {% endif %}
                                 {% else %}
-                                    Afficher
+                                    {% if sortie.etat.libelle == 'Ouverte' and  date() < date(sortie.dateLimiteInscription) %}
+                                        Afficher - S'inscrire
+                                    {% else %}
+                                        Afficher
+                                    {% endif %}
                                 {% endif %}
-                            {% else %}
-                                {% if sortie.etat.libelle == 'Ouverte' and  date() < date(sortie.dateLimiteInscription) %}
-                                    Afficher - S'inscrire
+                            </td>
+                        </tr>
+                    {% elseif (sortie.etat.libelle == 'Annulée' and date(sortie.dateHeureDebut) > date('-30days')) or (sortie.etat.libelle == 'Passée' and date(sortie.dateHeureDebut) > date('-30days')) %}
+                        <tr>
+                            <td>{{ sortie.nom }}</td>
+                            <td>{{ sortie.dateHeureDebut |date('d/m/y H:i') }}</td>
+                            <td>{{ sortie.dateLimiteInscription |date('d/m/y') }}</td>
+                            <td>{{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
+                            <td>{{ sortie.etat.libelle }}</td>
+                            <td>
+                                {% if app.user in sortie.participants %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
+                            <td>
+                                {% if sortie.organisateur  == app.user %}
+                                    {% if sortie.etat.libelle == 'Créée' %}
+                                        Modifier - Publier
+                                    {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
+                                        Afficher - Annuler
+                                    {% else %}
+                                        Afficher
+                                    {% endif %}
+                                {% elseif not (sortie.organisateur  == app.user) and app.user in sortie.participants %}
+                                    {% if sortie.etat.libelle == 'Ouverte' or (sortie.etat.libelle == 'Clôturée' and  date() < date(sortie.dateLimiteInscription)) %}
+                                        Afficher - Se désister
+                                    {% else %}
+                                        Afficher
+                                    {% endif %}
                                 {% else %}
-                                    Afficher
+                                    {% if sortie.etat.libelle == 'Ouverte' and  date() < date(sortie.dateLimiteInscription) %}
+                                        Afficher - S'inscrire
+                                    {% else %}
+                                        Afficher
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    {% elseif not ((sortie.etat.libelle == 'Créée') or (sortie.etat.libelle == 'Passée') or (sortie.etat.libelle == 'Annulée')) %}
+                        <tr>
+                            <td>{{ sortie.nom }}</td>
+                            <td>{{ sortie.dateHeureDebut |date('d/m/y H:i') }}</td>
+                            <td>{{ sortie.dateLimiteInscription |date('d/m/y') }}</td>
+                            <td>{{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
+                            <td>{{ sortie.etat.libelle }}</td>
+                            <td>
+                                {% if app.user in sortie.participants %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
+                            <td>
+                                {% if sortie.organisateur  == app.user %}
+                                    {% if sortie.etat.libelle == 'Créée' %}
+                                        Modifier - Publier
+                                    {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
+                                        Afficher - Annuler
+                                    {% else %}
+                                        Afficher
+                                    {% endif %}
+                                {% elseif not (sortie.organisateur  == app.user) and app.user in sortie.participants %}
+                                    {% if sortie.etat.libelle == 'Ouverte' or (sortie.etat.libelle == 'Clôturée' and  date() < date(sortie.dateLimiteInscription)) %}
+                                        Afficher - Se désister
+                                    {% else %}
+                                        Afficher
+                                    {% endif %}
+                                {% else %}
+                                    {% if sortie.etat.libelle == 'Ouverte' and  date() < date(sortie.dateLimiteInscription) %}
+                                        Afficher - S'inscrire
+                                    {% else %}
+                                        Afficher
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+
+                    {% endif %}
+
                 {% endfor %}
             </table>
         </div>
