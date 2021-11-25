@@ -59,19 +59,21 @@
                         <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
                         <td>
                             {% if sortie.organisateur  == app.user %}
-                                {% if sortie.etat.libelle == 'En création' %}
+                                {% if sortie.etat.libelle == 'Créée' %}
                                     Modifier - Publier
-                                {% elseif sortie.etat.libelle == 'Ouverte'  %}
+                                {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
                                     Afficher - Annuler
+                                {% else %}
+                                    Afficher
                                 {% endif %}
                             {% elseif not (sortie.organisateur  == app.user) and app.user in sortie.participants %}
-                                {% if sortie.etat.libelle == 'Ouverte' %}
+                                {% if sortie.etat.libelle == 'Ouverte' or (sortie.etat.libelle == 'Clôturée' and  date()  < date(sortie.dateLimiteInscription))  %}
                                     Afficher - Se désister
                                 {% else %}
                                     Afficher
                                 {% endif %}
                             {% else %}
-                                {% if sortie.etat.libelle == 'Ouverte' %}
+                                {% if sortie.etat.libelle == 'Ouverte' and  date() < date(sortie.dateLimiteInscription) %}
                                     Afficher - S'inscrire
                                 {% else %}
                                     Afficher
