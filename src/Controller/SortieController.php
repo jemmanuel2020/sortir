@@ -146,4 +146,39 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('main_home');
     }
+
+    /**
+     * @Route("/publier/{idSortie}", name="publier")
+     */
+    public function publishSortie(
+        int $idSortie,
+        SortieRepository $sortieRepository,
+        EtatRepository $etatRepository,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $sortie = $sortieRepository->find($idSortie);
+        $sortie->setEtat($etatRepository->find(2));
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('main_home');
+    }
+
+    /**
+     * @Route("/inscrire/{idSortie}", name="inscrire")
+     */
+    public function joinSortie(
+        int $idSortie,
+        SortieRepository $sortieRepository,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $sortie = $sortieRepository->find($idSortie);
+        $sortie->addParticipant($this->getUser());
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('main_home');
+    }
 }

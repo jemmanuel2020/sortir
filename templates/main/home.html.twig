@@ -62,7 +62,7 @@
                             <td>
                                 {% if sortie.organisateur  == app.user %}
                                     {% if sortie.etat.libelle == 'Créée' %}
-                                        <a href="{{ path('sortie_update', {'idSortie': sortie.idSortie}) }}">Modifier</a> - Publier
+                                        <a href="{{ path('sortie_update', {'idSortie': sortie.idSortie}) }}">Modifier</a> - <a href="{{ path('sortie_publier', {'idSortie': sortie.idSortie}) }}">Publier</a>
                                     {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
                                         Afficher - Annuler
                                     {% else %}
@@ -76,7 +76,7 @@
                                     {% endif %}
                                 {% else %}
                                     {% if sortie.etat.libelle == 'Ouverte' and  date() < date(sortie.dateLimiteInscription) %}
-                                        Afficher - S'inscrire
+                                        Afficher - <a href="{{ path('sortie_inscrire', {'idSortie': sortie.idSortie}) }}">S'inscrire</a>
                                     {% else %}
                                         Afficher
                                     {% endif %}
@@ -99,7 +99,7 @@
                             <td>
                                 {% if sortie.organisateur  == app.user %}
                                     {% if sortie.etat.libelle == 'Créée' %}
-                                        <a href="{{ path('sortie_update', {'idSortie': sortie.idSortie}) }}">Modifier</a> - Publier
+                                        <a href="{{ path('sortie_update', {'idSortie': sortie.idSortie}) }}">Modifier</a> - <a href="{{ path('sortie_publier', {'idSortie': sortie.idSortie}) }}">Publier</a>
                                     {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
                                         Afficher - Annuler
                                     {% else %}
@@ -113,7 +113,7 @@
                                     {% endif %}
                                 {% else %}
                                     {% if sortie.etat.libelle == 'Ouverte' and  date() < date(sortie.dateLimiteInscription) %}
-                                        Afficher - S'inscrire
+                                        Afficher - <a href="{{ path('sortie_inscrire', {'idSortie': sortie.idSortie}) }}">S'inscrire</a>
                                     {% else %}
                                         Afficher
                                     {% endif %}
@@ -136,7 +136,7 @@
                             <td>
                                 {% if sortie.organisateur  == app.user %}
                                     {% if sortie.etat.libelle == 'Créée' %}
-                                        <a href="{{ path('sortie_update', {'idSortie': sortie.idSortie}) }}">Modifier</a> - Publier
+                                        <a href="{{ path('sortie_update', {'idSortie': sortie.idSortie}) }}">Modifier</a> - <a href="{{ path('sortie_publier', {'idSortie': sortie.idSortie}) }}">Publier</a>
                                     {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
                                         Afficher - Annuler
                                     {% else %}
@@ -150,7 +150,7 @@
                                     {% endif %}
                                 {% else %}
                                     {% if sortie.etat.libelle == 'Ouverte' and  date() < date(sortie.dateLimiteInscription) %}
-                                        Afficher - S'inscrire
+                                        Afficher - <a href="{{ path('sortie_inscrire', {'idSortie': sortie.idSortie}) }}">S'inscrire</a>
                                     {% else %}
                                         Afficher
                                     {% endif %}
