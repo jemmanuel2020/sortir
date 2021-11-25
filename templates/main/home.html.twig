@@ -61,7 +61,7 @@
                             <td>
                                 {% if sortie.organisateur  == app.user %}
                                     {% if sortie.etat.libelle == 'Créée' %}
-                                        Modifier - Publier
+                                        <a href="{{ path('sortie_update', {'idSortie': sortie.idSortie}) }}">Modifier</a> - Publier
                                     {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
                                         Afficher - Annuler
                                     {% else %}
@@ -98,7 +98,7 @@
                             <td>
                                 {% if sortie.organisateur  == app.user %}
                                     {% if sortie.etat.libelle == 'Créée' %}
-                                        Modifier - Publier
+                                        <a href="{{ path('sortie_update', {'idSortie': sortie.idSortie}) }}">Modifier</a> - Publier
                                     {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
                                         Afficher - Annuler
                                     {% else %}
@@ -135,7 +135,7 @@
                             <td>
                                 {% if sortie.organisateur  == app.user %}
                                     {% if sortie.etat.libelle == 'Créée' %}
-                                        Modifier - Publier
+                                        <a href="{{ path('sortie_update', {'idSortie': sortie.idSortie}) }}">Modifier</a> - Publier
                                     {% elseif sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée' %}
                                         Afficher - Annuler
                                     {% else %}
