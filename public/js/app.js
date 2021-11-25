@@ -18,7 +18,7 @@ jQuery(
             // Requête les lieux de la ville sélectionnée.
             $.ajax({
                 //url: window.location.href.replace('create', 'listLieux'),
-                url: 'http://localhost:8080/sortir/public/sortie/listLieux',
+                url: 'http://localhost/sortir/public/sortie/listLieux',
                 type: "GET",
                 dataType: "JSON",
                 data: {

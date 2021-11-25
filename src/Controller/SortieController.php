@@ -181,4 +181,21 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('main_home');
     }
+
+    /**
+     * @Route("/desinscrire/{idSortie}", name="desinscrire")
+     */
+    public function leaveSortie(
+        int $idSortie,
+        SortieRepository $sortieRepository,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $sortie = $sortieRepository->find($idSortie);
+        $sortie->removeParticipant($this->getUser());
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('main_home');
+    }
 }

@@ -70,7 +70,7 @@
                                     {% endif %}
                                 {% elseif not (sortie.organisateur  == app.user) and app.user in sortie.participants %}
                                     {% if sortie.etat.libelle == 'Ouverte' or (sortie.etat.libelle == 'Clôturée' and  date() < date(sortie.dateLimiteInscription)) %}
-                                        Afficher - Se désister
+                                        Afficher - <a href="{{ path('sortie_desinscrire', {'idSortie': sortie.idSortie}) }}">Se désister</a>
                                     {% else %}
                                         Afficher
                                     {% endif %}
@@ -107,7 +107,7 @@
                                     {% endif %}
                                 {% elseif not (sortie.organisateur  == app.user) and app.user in sortie.participants %}
                                     {% if sortie.etat.libelle == 'Ouverte' or (sortie.etat.libelle == 'Clôturée' and  date() < date(sortie.dateLimiteInscription)) %}
-                                        Afficher - Se désister
+                                        Afficher - <a href="{{ path('sortie_desinscrire', {'idSortie': sortie.idSortie}) }}">Se désister</a>
                                     {% else %}
                                         Afficher
                                     {% endif %}
@@ -144,7 +144,7 @@
                                     {% endif %}
                                 {% elseif not (sortie.organisateur  == app.user) and app.user in sortie.participants %}
                                     {% if sortie.etat.libelle == 'Ouverte' or (sortie.etat.libelle == 'Clôturée' and  date() < date(sortie.dateLimiteInscription)) %}
-                                        Afficher - Se désister
+                                        Afficher - <a href="{{ path('sortie_desinscrire', {'idSortie': sortie.idSortie}) }}">Se désister</a>
                                     {% else %}
                                         Afficher
                                     {% endif %}
