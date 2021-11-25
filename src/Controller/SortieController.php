@@ -25,7 +25,6 @@ class SortieController extends AbstractController
      */
     public function createSortie(
         Request $request,
-        SortieRepository $sortieRepository,
         EtatRepository $etatRepository,
         EntityManagerInterface $entityManager
     ): Response
@@ -42,7 +41,10 @@ class SortieController extends AbstractController
         //Si formulaire envoyé et validé
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
-            $sortie->setEtat($etatRepository->find(1));
+            if($sortieForm->isSubmitted('publier'))
+                $sortie->setEtat($etatRepository->find(2));
+            else
+                $sortie->setEtat($etatRepository->find(1));
 
             $entityManager->persist($sortie);
             $entityManager->flush();
@@ -96,6 +98,7 @@ class SortieController extends AbstractController
         int $idSortie,
         Request $request,
         SortieRepository $sortieRepository,
+        EtatRepository $etatRepository,
         EntityManagerInterface $entityManager
     ): Response
     {
@@ -107,6 +110,9 @@ class SortieController extends AbstractController
         //Si formulaire envoyé et validé
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
+            if($sortieForm->isSubmitted('publier'))
+                $sortie->setEtat($etatRepository->find(2));
+
             $entityManager->persist($sortie);
             $entityManager->flush();
 
