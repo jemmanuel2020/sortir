@@ -234,3 +234,18 @@ footer {
     display: flex;
     justify-content: space-evenly;
 }
+
+/********************************************** PAGE ANNULER SORTIE ************************************************/
+#cancel-sortie-page h2 {
+    text-align: center;
+}
+
+#cancel-block-infos-form {
+    display: flex;
+}
+
+#cancel-block-buttons{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1.5rem;
+}

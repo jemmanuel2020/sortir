@@ -5,15 +5,29 @@
 
         <h2>Annuler une sortie</h2>
 
-        <p>Nom de la sortie : {{ sortie.nom }}</p>
-        <p>Date de la sortie : {{ sortie.dateHeureDebut.format('d/m/Y') }}</p>
-        <p>Campus : {{ sortie.campus }}</p>
-        <p>Lieu : {{ sortie.lieu.nom }} {{ sortie.lieu.rue }} {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</p>
-        <label>Motif :</label>
-        <textarea></textarea>
+        <form id="cancel-form" action="{{ path('sortie_annuler', {'idSortie': sortie.idSortie}) }}" method="post">
+            <div id="cancel-block-infos-form">
+                <div>
+                    <p>Nom de la sortie :</p>
+                    <p>Date de la sortie :</p>
+                    <p>Campus :</p>
+                    <p>Lieu :</p>
+                    <label for="motif">Motif :</label>
+                </div>
+                <div>
+                    <p>{{ sortie.nom }}</p>
+                    <p>{{ sortie.dateHeureDebut.format('d/m/Y') }}</p>
+                    <p>{{ sortie.campus }}</p>
+                    <p>{{ sortie.lieu.nom }} {{ sortie.lieu.rue }} {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</p>
+                    <textarea name="motif" id="motif" rows="6" cols="30"></textarea>
+                </div>
+            </div>
 
-        <button type="submit" name="enregistrer">Enregistrer</button>
-        <button><a href="{{ path('main_home') }}" title="Retour vers l'acceuil">Annuler</a></button>
+            <div id="cancel-block-buttons">
+                <button type="submit" name="enregistrer">Enregistrer</button>
+                <button><a href="{{ path('main_home') }}" title="Retour vers l'acceuil">Annuler</a></button>
+            </div>
+        </form>
 
     </div>
 {% endblock %}

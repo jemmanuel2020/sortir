@@ -217,13 +217,22 @@ class SortieController extends AbstractController
     public function cancelSortie(
         int $idSortie,
         SortieRepository $sortieRepository,
+        EtatRepository $etatRepository,
         EntityManagerInterface $entityManager
     ): Response
     {
         $sortie = $sortieRepository->find($idSortie);
-       /* $sortie->addParticipant($this->getUser());
-        $entityManager->persist($sortie);
-        $entityManager->flush();*/
+
+        if (isset($_POST['enregistrer']))
+        {
+            $sortie->setEtat($etatRepository->find(6));
+            $sortie->setInfosSortie(htmlspecialchars($_POST['motif']));
+
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('main_home');
+        }
 
         return $this->render('sortie/annulerSortie.html.twig', [
             'sortie' => $sortie,

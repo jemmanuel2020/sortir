@@ -16,7 +16,11 @@
                 <p id="libelle">Date limite d'inscription:</p> <p id="valeur">{{ sortie.dateLimiteInscription |date('d/m/y') }}</p>
                 <p id="libelle">Nombre de places:</p> <p id="valeur">{{ sortie.nbInscriptionsMax }}</p>
                 <p id="libelle">Durée:</p> <p id="valeur">{{ sortie.duree }} minutes</p>
-                <p id="libelle">Description et infos:</p> <p id="valeur">{{ sortie.infosSortie }}</p>
+                {% if(sortie.etat.idEtat == "6") %}
+                    <p id="libelle">Motif d'annulation:</p> <p id="valeur">{{ sortie.infosSortie }}</p>
+                {% else %}
+                    <p id="libelle">Description et infos:</p> <p id="valeur">{{ sortie.infosSortie }}</p>
+                {% endif %}
             </div>
             <div id="sortie-form-second-part" style="float: right; margin-left: 10rem;">
                 <p id="libelle" style="display: flex">Campus:</p> <p id="valeur">{{ sortie.campus.nom }}</p>
