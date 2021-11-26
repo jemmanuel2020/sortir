@@ -92,7 +92,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/update/{idSortie}", name="update")
+     * @Route("/update/{idSortie}", name="update", requirements={"idSortie"="\d+"})
      */
     public function updateSortie(
         int $idSortie,

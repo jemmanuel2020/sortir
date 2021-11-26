@@ -32,7 +32,13 @@ class SortieRepository extends ServiceEntityRepository
 
     //Gestion des filtres
     public function findByFiltre(Modele $modele){
-        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->join('s.etat', 'e')
+            ->join('s.organisateur', 'o')
+            ->leftJoin('s.participants', 'p')
+            ->addSelect('e')
+            ->addSelect('o')
+            ->addSelect('p');
         //Filtre nom du campus
         if (!empty($modele->getNomCampus())){
             $queryBuilder->andWhere('s.campus = :nc');

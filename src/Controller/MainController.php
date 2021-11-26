@@ -41,8 +41,8 @@ class MainController extends AbstractController
             $sorties = $sortieRepository->findByFiltre($modele);
         }
 
-        return $this->render('main/home.html.twig', [
-            'filtreForm' => $filtreForm->createView(),
+        return $this->renderForm('main/home.html.twig', [
+            'filtreForm' => $filtreForm,
             "sorties" => $sorties
         ]);
 
