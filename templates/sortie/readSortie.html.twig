@@ -5,37 +5,51 @@
 {% endblock %}
 
 {% block body %}
-    <div id="create-sortie-page">
+    <div id="read-sortie-page">
 
         <h2>Afficher une sortie</h2>
 
-        <div id="div-form-create-sortie">
-            <div id="sortie-form-first-part" style="float: left; " >
-                <p id="libelle">Nom de la sortie:</p> <p id="valeur">{{ sortie.nom }}</p>
-                <p id="libelle">Date et heure de la sortie:</p> <p id="valeur">{{ sortie.dateHeureDebut |date('d/m/y H:i') }}</p>
-                <p id="libelle">Date limite d'inscription:</p> <p id="valeur">{{ sortie.dateLimiteInscription |date('d/m/y') }}</p>
-                <p id="libelle">Nombre de places:</p> <p id="valeur">{{ sortie.nbInscriptionsMax }}</p>
-                <p id="libelle">Durée:</p> <p id="valeur">{{ sortie.duree }} minutes</p>
+        <table id="read-details-sortie">
+            <tr>
+                <td id="libelle">Nom de la sortie:</td><td id="valeur">{{ sortie.nom }}</td>
+                <td id="libelle">Campus:</td><td id="valeur">{{ sortie.campus.nom }}</td>
+            </tr>
+            <tr>
+                <td id="libelle">Date et heure de la sortie:</td><td id="valeur">{{ sortie.dateHeureDebut |date('d/m/y H:i') }}</td>
+                <td id="libelle">Lieu:</td><td id="valeur">{{ sortie.lieu.nom }}</td>
+            </tr>
+            <tr>
+                <td id="libelle">Date limite d'inscription:</td>
+                <td id="valeur">{{ sortie.dateLimiteInscription |date('d/m/y') }}</td>
+                <td id="libelle">Rue:</td>
+                <td id="valeur">{{ sortie.lieu.rue }}</td>
+            </tr>
+            <tr>
+                <td id="libelle">Nombre de places:</td>
+                <td id="valeur">{{ sortie.nbInscriptionsMax }}</td>
+                <td id="libelle">Code postal:</td>
+                <td id="valeur">{{ sortie.lieu.ville.codePostal }}</td>
+            </tr>
+            <tr>
+                <td id="libelle">Durée:</td>
+                <td id="valeur">{{ sortie.duree }} minutes</td>
+                <td id="libelle">Latitude:</td>
+                <td id="valeur">{{ sortie.lieu.latitude }}</td>
+            </tr>
+            <tr>
                 {% if(sortie.etat.idEtat == "6") %}
-                    <p id="libelle">Motif d'annulation:</p> <p id="valeur">{{ sortie.infosSortie }}</p>
+                    <td id="libelle">Motif d'annulation:</td>
                 {% else %}
-                    <p id="libelle">Description et infos:</p> <p id="valeur">{{ sortie.infosSortie }}</p>
-                {% endif %}
-            </div>
-            <div id="sortie-form-second-part" style="float: right; margin-left: 10rem;">
-                <p id="libelle" style="display: flex">Campus:</p> <p id="valeur">{{ sortie.campus.nom }}</p>
-                <p id="libelle">Lieu:</p> <p id="valeur">{{ sortie.lieu.nom }}</p>
-                <p id="libelle">Rue:</p> <p id="valeur">{{ sortie.lieu.rue }}</p>
-                <p id="libelle">Ville:</p> <p id="valeur">{{ sortie.lieu.ville.nom }}</p>
-                <p id="libelle">Code postal:</p> <p id="valeur">{{ sortie.lieu.ville.codePostal }}</p>
-                <p id="libelle">Latitude:</p> <p id="valeur">{{ sortie.lieu.latitude }}</p>
-                <p id="libelle">Longitude:</p> <p id="valeur">{{ sortie.lieu.longitude }}</p>
-            </div>
-        </div>
+                    <td id="libelle">Description et infos:</td>
+                <td id="valeur"><p>{{ sortie.infosSortie }}</p></td>
+                <td id="libelle">Longitude:</td>
+                <td id="valeur">{{ sortie.lieu.longitude }}</td>
+            </tr>
+        </table>
         <div >
             <br><br><br>
             <h4 style="margin-top: 5rem">Liste des participants inscrits:</h4>
-            <table>
+            <table id="read-liste-participants">
                 <tr>
                     <td>Pseudo</td>
                     <td>Nom</td>

@@ -249,3 +249,13 @@ footer {
     justify-content: space-evenly;
     margin-top: 1.5rem;
 }
+
+/********************************************** PAGE AFFICHER SORTIE ************************************************/
+#read-sortie-page h2 {
+    text-align: center;
+}
+
+#read-sortie-page #read-details-sortie >td #libelle {
+    width: 8rem;
+    margin-left: 5rem;
+}
