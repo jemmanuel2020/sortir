@@ -3,7 +3,7 @@
 {% block body %}
     <div id="update-sortie-page">
 
-        <h2>Créer une sortie</h2>
+        <h2>Modifier une sortie</h2>
 
         <div id="div-form-create-sortie">
             {{  form_start(sortieForm) }}
@@ -27,8 +27,8 @@
                 </div>
             </div>
             <div id="bloc-button-create-sortie">
-                <button type="submit" name="modifier">Modifier</button>
-                <button type="submit" name="publier">Publier la sortie</button>
+                {{  form_row(sortieForm.enregistrer) }}
+                {{  form_row(sortieForm.publier) }}
                 <button name="supprimer"><a href="{{ path('sortie_delete', {'idSortie': idSortie}) }}" title="supprimer">Supprimer la sortie</a></button>
                 <button><a href="{{ path('main_home') }}" title="Retour vers l'acceuil">Annuler</a></button>
             </div>
@@ -39,6 +39,6 @@
 {% endblock %}
 
 {% block title %}
-    {{ parent() }} | Création sortie
+    {{ parent() }} | Modifier sortie
 {% endblock %}
 
