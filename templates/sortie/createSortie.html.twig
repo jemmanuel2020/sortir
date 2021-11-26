@@ -13,7 +13,7 @@
             {{  form_start(sortieForm) }}
             <div>
                 <div id="sortie-form-first-part">
-                    {{{  form_row(sortieForm.nom) }}
+                    {{  form_row(sortieForm.nom) }}
                     {{  form_row(sortieForm.dateHeureDebut) }}
                     {{  form_row(sortieForm.dateLimiteInscription) }}
                     {{  form_row(sortieForm.nbInscriptionsMax) }}
@@ -31,8 +31,8 @@
                 </div>
             </div>
             <div id="bloc-button-create-sortie">
-                <button type="submit" name="enregistrer">Enregistrer</button>
-                <button type="submit" name="publier">Publier la sortie</button>
+                {{  form_row(sortieForm.enregistrer) }}
+                {{  form_row(sortieForm.publier) }}
                 <button><a href="{{ path('main_home') }}" title="Retour vers l'acceuil">Annuler</a></button>
             </div>
             {{  form_end(sortieForm) }}

@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Participant;
 use App\Entity\Sortie;
-use App\Form\ReadSortieType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
@@ -43,7 +41,7 @@ class SortieController extends AbstractController
         //Si formulaire envoyé et validé
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
-            if($sortieForm->isSubmitted('publier'))
+            if($sortieForm->get('publier')->isClicked())
                 $sortie->setEtat($etatRepository->find(2));
             else
                 $sortie->setEtat($etatRepository->find(1));
@@ -112,7 +110,7 @@ class SortieController extends AbstractController
         //Si formulaire envoyé et validé
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
-            if($sortieForm->isSubmitted('publier'))
+            if($sortieForm->get('publier')->isClicked())
                 $sortie->setEtat($etatRepository->find(2));
 
             $entityManager->persist($sortie);
@@ -211,5 +209,24 @@ class SortieController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('main_home');
+    }
+
+    /**
+     * @Route("/annuler/{idSortie}", name="annuler")
+     */
+    public function cancelSortie(
+        int $idSortie,
+        SortieRepository $sortieRepository,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $sortie = $sortieRepository->find($idSortie);
+       /* $sortie->addParticipant($this->getUser());
+        $entityManager->persist($sortie);
+        $entityManager->flush();*/
+
+        return $this->render('sortie/annulerSortie.html.twig', [
+            'sortie' => $sortie,
+        ]);
     }
 }

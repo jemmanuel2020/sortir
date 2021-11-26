@@ -2,6 +2,7 @@
     <ul>
         {% if app.user %}
             {% if app.request.pathinfo == '/admin' %}
+                {# {% if app.request.pathinfo == '/' %} #}
                 <li><a href=# title="Villes">Villes</a></li>
                 <li><a href=# title="Campus">Campus</a></li>
             {% endif %}
