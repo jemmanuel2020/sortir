@@ -58,7 +58,11 @@
                                     X
                                 {% endif %}
                             </td>
-                            <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
+                            {% if(app.user.idParticipant == sortie.organisateur.idParticipant) %}
+                                <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
+                            {% else %}
+                                <td><a href="{{ path('participant_read', {'idParticipant': sortie.organisateur.idParticipant}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</a></td>
+                            {% endif %}
                             <td>
                                 {% if sortie.organisateur  == app.user %}
                                     {% if sortie.etat.libelle == 'Créée' %}
@@ -95,7 +99,11 @@
                                     X
                                 {% endif %}
                             </td>
-                            <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
+                            {% if(app.user.idParticipant == sortie.organisateur.idParticipant) %}
+                                <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
+                            {% else %}
+                                <td><a href="{{ path('participant_read', {'idParticipant': sortie.organisateur.idParticipant}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</a></td>
+                            {% endif %}
                             <td>
                                 {% if sortie.organisateur  == app.user %}
                                     {% if sortie.etat.libelle == 'Créée' %}
@@ -132,7 +140,11 @@
                                     X
                                 {% endif %}
                             </td>
-                            <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
+                            {% if(app.user.idParticipant == sortie.organisateur.idParticipant) %}
+                                <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</td>
+                            {% else %}
+                                <td><a href="{{ path('participant_read', {'idParticipant': sortie.organisateur.idParticipant}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom | slice(0,1) }}.</a></td>
+                            {% endif %}
                             <td>
                                 {% if sortie.organisateur  == app.user %}
                                     {% if sortie.etat.libelle == 'Créée' %}

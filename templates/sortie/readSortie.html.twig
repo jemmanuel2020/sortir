@@ -27,7 +27,7 @@
             <tr>
                 <td id="libelle">Nombre de places:</td>
                 <td id="valeur">{{ sortie.nbInscriptionsMax }}</td>
-                <td id="libelle" >Code postal:</td>
+                <td id="libelle">Code postal:</td>
                 <td id="valeur">{{ sortie.lieu.ville.codePostal }}</td>
             </tr>
             <tr>
@@ -56,7 +56,11 @@
                 </tr>
                 {% for participant in participants %}
                     <tr>
-                        <td>{{ participant.pseudo }}</td>
+                        {% if(app.user.idParticipant == sortie.organisateur.idParticipant) %}
+                            <td>{{ participant.pseudo }}</td>
+                        {% else %}
+                            <td><a href="{{ path('participant_read', {'idParticipant': participant.idParticipant}) }}">{{ participant.pseudo }}</a></td>
+                        {% endif %}
                         <td>{{ participant.prenom }} {{ participant.nom }}</td>
                     </tr>
                 {% endfor %}

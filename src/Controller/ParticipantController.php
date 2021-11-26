@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ProfilType;
+use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,12 +61,17 @@ dump($participantForm->isSubmitted());
     }
 
     /**
-     * @Route("/read", name="read")
+     * @Route("/read/{idParticipant}", name="read")
      */
-    public function readProfil(): Response
+    public function readProfil(
+        int $idParticipant,
+        ParticipantRepository $participantRepository
+    ): Response
     {
-//        if(!$participant)
-//            throw $this->createNotFoundException('Ce profil n\'éxiste pas.');
-        //todo itération 1 - 2008
+        $participant = $participantRepository->find($idParticipant);
+
+        return $this->render('participant/readProfil.html.twig', [
+            'participant' => $participant,
+        ]);
     }
 }

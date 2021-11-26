@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="mon-profil">
+
+        <h2>{{ participant.pseudo }}</h2>
+
+        <div id="div-infos-profil">
+            <div id="div-img">
+                <img src="{{ asset('img/img_profil.PNG') }}" alt="photo profil">
+            </div>
+
+            <div>
+                <div id="cancel-block-infos-form">
+                    <div>
+                        <p>Prénom :</p>
+                        <p>Nom :</p>
+                        <p>Téléphone :</p>
+                        <p>Email :</p>
+                        <p>Campus :</p>
+                    </div>
+                    <div>
+                        <p>{{ participant.prenom }}</p>
+                        <p>{{ participant.nom }}</p>
+                        <p>{{ participant.telephone }}</p>
+                        <p>{{ participant.mail }}</p>
+                        <p>{{ participant.campus }}</p>
+                    </div>
+                </div>
+
+                <div id="button-profil">
+                    <button><a href="{{ path('main_home') }}" title="Retour vers l'acceuil">Annuler</a></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | Profil
+{% endblock %}
+
